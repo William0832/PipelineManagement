@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>生產儀表板</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- import Bootstrap 3  -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> 
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script> 
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.5/css/bootstrap-select.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.5/js/bootstrap-select.min.js"></script>
+
+    <!-- import react  package-->
+    <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+    <!-- import Redux  -->
+    <script src="https://unpkg.com/redux@3.7.2/dist/redux.min.js"></script>
+
+    <!-- import D3.js -->
+    <script src="http://d3js.org/d3.v4.min.js"></script>
+    <!-- <link rel="stylesheet" href="/web/css/barchart.css"> -->
+
+    <!-- import css -->
+    <!-- <link rel="stylesheet" href="/web/css/portal.css"> -->
+    <!-- <link rel="stylesheet" href="/web/css/capsule.css"> -->
+    <!-- <link rel="stylesheet" href="/web/css/loader.css"> -->
+    <!-- <link rel="stylesheet" href="/web/css/report.css"> -->
+
+
+</head>
+
+
+<body data-spy="scroll" data-target=".navbar" data-offset="50">
+
+    <nav class="nav navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/index.html">金律鑫 MES</a>
+            </div><ul class="nav navbar-nav">
+                <!-- <li><a href="/pages/partsReport.html">料號報表</a></li> -->
+                <li><a href="/pages/Dashboard_Workitem.html">生產報表</a></li>
+                <li><a href="/pages/Dashboard_Prepare.html">製程看板</a></li>
+                <li><a href="/pages/Dashboard_Test.html">生產看板</a></li>
+                <li><a href="/pages/Report_Test.html">生產稼動表</a></li>
+            </ul>
+        </div>
+    </nav>
+    <style>
+        .headerDivider1 { 
+    border-left:1px solid #38546d; 
+    border-right:1px solid #16222c; 
+    height:80px; 
+    position:absolute; 
+    right:249px; 
+    top:10px; 
+} 
+.verticalDivider { 
+    
+    border-right:1px solid gray; 
+    height:20px; 
+    margin-left:10px;
+    margin-right:10px;
+    
+    
+} 
+
+    </style>
+
+    <div class="tab-content" style="padding-left:10px">
+
+        <!-- 3 Service Quota -->
+        <h3>生產儀表板</h3>
+        <hr>
+
+        <!-- 3 Service Quota -->
+        <style>
+
+            .panel_waitings {
+                width:250px;
+                display:inline-flex;
+                margin: 5px 5px 5px 5px;
+                /* border-style:solid; */
+                /* border-width:thin; */
+                /* border:1; */
+                /* border-color:gray; */
+                box-shadow: 2px 2px #aaaaaa;
+                background-color:lightskyblue;
+                border-radius:5px;
+
+            }
+            .panel_working {
+                width:250px;
+                display:inline-flex;
+                margin: 5px 5px 5px 5px;
+                /* border-style:solid; */
+                /* border-width:thin; */
+                /* border:1; */
+                /* border-color:gray; */
+                box-shadow: 2px 2px #aaaaaa;
+                background-color:lightyellow;
+                border-radius:8px;
+                height:90px;
+
+            }
+
+            .panel_idle {
+                width:250px;
+                display:inline-flex;
+                margin: 5px 5px 5px 5px;
+                /* border-style:solid;
+                border-width:thin;
+                border:1; */
+                /* border-color:gray; */
+                box-shadow: 2px 2px #aaaaaa;
+                background-color:lightgray;
+                border-radius:8px;
+                height:90px;
+
+            }
+            table{
+                margin:5px 5px 5px 5px ;
+                
+            }
+            th{
+                width:300px;
+            }
+        </style>
+        <div class="tab-pane fade container in active">
+            <panel style="width:1000px;height:150px" class="panel_idle">
+                <table>
+                    <tr  style="height: 100px;vertical-align:top">
+                        <td id="testing_waitings" style="padding-left:20px">
+                            待處理:<br/>
+                        </td>
+                </table>
+                
+            </panel>
+        </div>
+        
+        
+        <div class="tab-pane fade container in active">
+            <h4>萬用機台</h4>
+            <div id="tool_universal" class="table-responsive custom-table-width">
+                
+
+            </div>
+            <h4>飛針</h4>
+            <div id="tool_fly" class="table-responsive custom-table-width">
+                
+
+               
+            <script src="/js/Testing/getTestWaiting.js"></script>
+            <script src="/js/Testing/getTestToolStatus.js"></script>
+                <!-- <div class="loader loader-4" id="loader-sq">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div> -->
+                <script type="text/javascript">
+                    function checkInTestRecord(record_id,type){
+                        $('#change_record_id').val(record_id)
+                        $('#select_type').val(type)
+                        $('#select_tool_id').empty();
+
+
+                        $.ajax({
+                            // url: '/getServiceQuota/ec2',
+                            url: '/testing/getTools/test',
+                            type: 'GET',
+                            dataType: 'json',
+                            success: function (json) {
+                                // console.log("Get Customer List Table")
+                                console.log(json);
+
+                                // var total_count = 0;
+                                // var complete_survey_count = 0;
+                                // var complete_comment_count = 0;
+
+                                $.each(json.results, function (i, result) {
+
+                                    // 
+                                    var tool_type = result.tool_type;
+                                    var tool_id = result.tool_id;
+                                    var tool_name = result.tool_name;
+                                    var owner = result.owner;
+                                    
+
+
+                                    if(tool_type == type){
+                                        $('#select_tool_id').append('<option value="'+tool_id+'">'+tool_id+'('+tool_name+')</option>');
+                                    }
+                                    
+                                
+
+                                });
+
+                                
+
+                            },
+                            fail: function (json) { console.log("fail"); }
+                        });
+
+                        
+                        
+                        
+                        $('#checkInTestRecordModal').modal('show');
+                    }
+
+
+                    function checkInFlyTestRecord(record_id,type){
+                        $('#change_record_id').val(record_id)
+                        $('#select_type').val(type)
+                        $('#select_tool_id').empty();
+
+
+                        $.ajax({
+                            // url: '/getServiceQuota/ec2',
+                            url: '/testing/getTestTools',
+                            type: 'GET',
+                            dataType: 'json',
+                            success: function (json) {
+                                // console.log("Get Customer List Table")
+                                console.log(json);
+
+                                // var total_count = 0;
+                                // var complete_survey_count = 0;
+                                // var complete_comment_count = 0;
+
+                                $.each(json.results, function (i, result) {
+
+                                    // 
+                                    var tool_type = result.tool_type;
+                                    var tool_id = result.tool_id;
+                                    var tool_name = result.tool_name;
+                                    var owner = result.owner;
+                                    
+
+                                    // 
+
+                                    if(tool_type == "飛針"){
+                                        $('#select_fly_tool_id').append('<label class="checkbox-inline"><input type="checkbox" name="'+tool_id+'">'+tool_id+'</input></label>');
+                                    }
+                                    
+                                
+
+                                });
+
+                                
+
+                            },
+                            fail: function (json) { console.log("fail"); }
+                        });
+
+                        
+                        
+                        
+                        $('#checkInFlyTestRecordModal').modal('show');
+                    }
+                  </script>
+
+            </div>
+
+        </div>
+        <hr />
+
+<!-- Modal -->
+<div class="modal fade" id="checkInTestRecordModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">選擇生產機台</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+
+                    <label>機台類別:</label>
+                    <input id="select_type" class="form-control"  readonly>
+                    <br/>
+                    <label>選擇機台:</label>
+                    <select id="select_tool_id" class="form-control" ></select>
+                    <br/>
+                    <br/>
+                    <h5>確認選擇機台進行製程?</h5>
+                    <!-- <label>是否完成?進入下一階段?</label> -->
+                    <input id="change_record_id" hidden>
+                </div>
+            </div>
+            <div class="modal-footer">
+                
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="submitCheckInTestRecord()">確定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="checkInFlyTestRecordModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">選擇飛針生產機台</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+
+                    <label>選擇機台:</label>
+                    <div id="select_fly_tool_id" >
+
+                    </div>
+                    <br/>
+                    <br/>
+                    <h5>確認選擇機台進行製程?</h5>
+                    <!-- <label>是否完成?進入下一階段?</label> -->
+                    <input id="change_record_id" hidden>
+                </div>
+            </div>
+            <div class="modal-footer">
+                
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="submitCheckInFlyTestRecord()">確定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="changePrepareRecordModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">治具準備紀錄</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+
+                    <label>工段:</label>
+                    <input id="select_work_type" class="form-control"  readonly>
+                    <br/>
+                    <label>目前機台:</label>
+                    <input id="select_work_tool_id" class="form-control" readonly>
+                    <br/>
+                    <label>目標料號:</label>
+                    <input id="select_work_part_no" class="form-control" readonly>
+                    <br/>
+                    <br/>
+                    <h5>若工段已完成，請點選「完成，進行下一步」</h5>
+                    <!-- <label>是否完成?進入下一階段?</label> -->
+                    <input id="select_work_record_id" hidden>
+                </div>
+            </div>
+            <div class="modal-footer">
+                
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="submitChangePrepareRecordPhase()">完成，進行下一步</button>
+            </div>
+        </div>
+    </div>
+</div>
+       
+<script>    
+    function submitCheckInTestRecord() {
+        // alert('New value: ' + myRadio.value);
+        // alert('Name: ' + myRadio.name);
+        // optradio_q2_2
+
+         record_id = document.getElementById("change_record_id").value;
+         select_tool_id = document.getElementById("select_tool_id").value;
+        // new_permission = document.getElementById("new_permission").value;
+        // 
+        $.ajax({
+            url: '/testing/checkInTestRecord',
+            type: 'POST',
+            data: {record_id:record_id,select_tool_id:select_tool_id},
+            dataType: 'json',
+            success: function (json) {
+                if(json.result!="success"){
+                    console.log("Update detail")
+                    console.log(json);
+                    alert(json.message);
+                    location.reload();
+                }else{
+                    console.log("Update detail")
+                    console.log(json);
+                    alert(json.message);
+                    location.reload();
+                }
+                
+                
+            }
+        });       
+    }
+    function submitCheckInFlyTestRecord() {
+        // alert('New value: ' + myRadio.value);
+        // alert('Name: ' + myRadio.name);
+        // optradio_q2_2
+
+        record_id = document.getElementById("change_record_id").value;
+        // select_tool_id = document.getElementById("select_tool_id").value;
+        select_tool_id ="";
+        
+        // document.getElementById("myCheck").checked = true;
+        var searchEles = document.getElementById("select_fly_tool_id").children;
+        for(var i = 0; i < searchEles.length; i++) {
+            console.log(searchEles[i].tagName)
+            
+            var labelEles = searchEles[i].children;
+            console.log(labelEles.length);
+
+            for(var j = 0; j < labelEles.length; j++) {
+                
+
+                if(labelEles[j].tagName == 'INPUT') {
+                    console.log(labelEles[j].tagName)
+                    
+                    if(labelEles[j].checked == true){
+                        console.log(labelEles[j].name);
+                        select_tool_id = select_tool_id + labelEles[j].name + ","
+                    }
+                    // }
+                }
+            }
+            
+        }
+
+        
+        
+        // 
+        $.ajax({
+            url: '/testing/checkInFlyTestRecord',
+            type: 'POST',
+            data: {record_id:record_id,select_tool_id:select_tool_id},
+            dataType: 'json',
+            success: function (json) {
+                if(json.result!="success"){
+                    console.log("Update detail")
+                    console.log(json);
+                    alert(json.message);
+                    location.reload();
+                }else{
+                    console.log("Update detail")
+                    console.log(json);
+                    alert(json.message);
+                    location.reload();
+                }
+                
+                
+            }
+        });       
+    }
+    function submitChangePrepareRecordPhase() {
+        // alert('New value: ' + myRadio.value);
+        // alert('Name: ' + myRadio.name);
+        // optradio_q2_2
+
+        record_id = document.getElementById("select_work_record_id").value;
+        // new_permission = document.getElementById("new_permission").value;
+        // 
+        $.ajax({
+            // url: '/json/mock/cx_score_detail.json',
+            url: '/prepare/changePrepareRecordPhase',
+            type: 'POST',
+            data: {record_id:record_id},
+            dataType: 'json',
+            success: function (json) {
+                if(json.result!="success"){
+                    console.log("Update detail")
+                    console.log(json);
+                    alert(json.message);
+                    location.reload();
+                }else{
+                    console.log("Update detail")
+                    console.log(json);
+                    alert(json.message);
+                    location.reload();
+                }
+                
+                
+            }
+        });       
+    }
+    
+    
+</script>
+
+
+</body>
+
+</html>

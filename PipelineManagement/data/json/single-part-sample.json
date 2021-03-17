@@ -1,0 +1,28 @@
+{
+    "_etag": "{\"$oid\":\"6007c85724e1b10009ee8464\"}",
+    "_id": "{\"$oid\":\"6007c8578fe6ec0eae8da867\"}",
+    "author": "KAI", // 製作人
+    "createDate": "{\"$date\":\"2021-01-20T06:05:13.755Z\"}", // 建立日期
+    "customer": "G", // 客戶代號
+    "fixturePoints": "5013", // 治具點數
+    "fixtureTypes": "[\"5e70460d2a9f5f00f3257bd5\"]", // 測試分類
+    "note": "6cb52501m.ref", // 備註
+    "partNo": "06CB50250001", // 料號
+    "pictures": "[]", // 相關圖片
+    "testNo": "15", // 測試編號
+    "twoLinePoints": "5013", // 2線點數
+    "id": null, 
+    "layoutCoordinate": null, // 排版座標
+    "bottom": null, // 下模
+    "top": null, // 上模
+    "estInDate": null, // 預計來料時間
+    "fixtureTests": null,
+    "minPad": null,
+    "fourLinePoints": null, // 4線點數
+    "mergeBoardCount": null, // 並板數
+    "bareBoardLayout": null, // 裸測排版
+    "bareBoardTestPoints": null, // 裸測點數
+    "originDate": null, // 原日期
+    "minPitch": null,
+    "color": null
+  }

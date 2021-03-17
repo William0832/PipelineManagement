@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>劇本編輯器</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- import Bootstrap 3  -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> 
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script> 
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.5/css/bootstrap-select.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.5/js/bootstrap-select.min.js"></script>
+
+    <!-- import react  package-->
+    <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+    <!-- import Redux  -->
+    <script src="https://unpkg.com/redux@3.7.2/dist/redux.min.js"></script>
+
+    <!-- import D3.js -->
+    <script src="http://d3js.org/d3.v4.min.js"></script>
+    <link rel="stylesheet" href="/web/css/barchart.css">
+
+    <!-- import css -->
+    <link rel="stylesheet" href="/web/css/portal.css">
+    <link rel="stylesheet" href="/web/css/capsule.css">
+    <link rel="stylesheet" href="/web/css/loader.css">
+    <link rel="stylesheet" href="/web/css/report.css">
+
+
+</head>
+
+
+<body data-spy="scroll" data-target=".navbar" data-offset="50">
+
+    <nav class="nav navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/index.html"><img src="/web/assets/images/aws_logo_105x39.png"
+                        style="height:35px;padding:0px 0px 10px 0px;" /></a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="/pages/editOutline.html">編輯分場</a></li>
+                <li><a href="/pages/editCharactor.html">編輯角色</a></li>
+                <li><a href="/pages/editScene.html">編輯場景</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="tab-content">
+
+        <!-- 3 Service Quota -->
+        <div id="servicequota" class="tab-pane fade container in active">
+
+            <div class="table-responsive custom-table-width">
+                <h3>劇本大綱/分場 </h3>
+                <!-- <p>List all services usage of your AWS Account and it's quota.</p>
+                <p>If the quota is not enough or the resource is tight, please click the button to submit the "Service
+                    Limit Increase" case.</p> -->
+                <hr />
+                
+                
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary" onclick="filterButton('role')">根據角色篩選</button>
+                    <button type="button" class="btn btn-primary" onclick="filterButton('scene')">根據場景篩選</button>
+                </div>
+                <br/>
+                <br/>
+                <div class="btn-group" id="divFilterByRole" style="display:inline">
+                    <button type="button" class="btn btn-default" onclick="filterRole('All')"><img src="/assets/photo/irving.png" width="30px" style="padding-right:5px">All</button>
+                    <button type="button" class="btn btn-default" onclick="filterRole('艾拉')"><img src="/assets/photo/ella.png" width="30px" style="padding-right:5px">艾拉</button>
+                    <button type="button" class="btn btn-default" onclick="filterRole('王冠強')"><img src="/assets/photo/king.png" width="30px" style="padding-right:5px">王冠強</button>
+                    <button type="button" class="btn btn-default" onclick="filterRole('王子')"><img src="/assets/photo/prince.png" width="30px" style="padding-right:5px">王子</button>
+                    <button type="button" class="btn btn-default" onclick="filterRole('Queen')"><img src="/assets/photo/queen.png" width="30px" style="padding-right:5px">Queen</button>
+                    <button type="button" class="btn btn-default" onclick="filterRole('Jacky')"><img src="/assets/photo/jacky.png" width="30px" style="padding-right:5px">Jacky</button>
+                    <button type="button" class="btn btn-default" onclick="filterRole('Francis')"><img src="/assets/photo/francis.png" width="30px" style="padding-right:5px">Francis</button>
+                    <button type="button" class="btn btn-default" onclick="filterRole('Irving')"><img src="/assets/photo/irving.png" width="30px" style="padding-right:5px">徐爾文</button>
+                    <button type="button" class="btn btn-default" onclick="filterRole('嘉能')"><img src="/assets/photo/terry.png" width="30px" style="padding-right:5px">魏嘉能</button>
+                </div>
+                <div class="btn-group" id="divFilterByScene" style="display:none">
+                    <button type="button" class="btn btn-default" onclick="filterScene('All')">All</button>
+                    <button type="button" class="btn btn-default" onclick="filterScene('艾拉家')">艾拉家</button>
+                    <button type="button" class="btn btn-default" onclick="filterScene('球場')">球場</button>
+                    <button type="button" class="btn btn-default" onclick="filterScene('休息室')">休息室</button>
+                    <button type="button" class="btn btn-default" onclick="filterScene('辦公室')">辦公室</button>
+                </div>
+                
+                <br/>
+                <hr/>
+                <button class="btn btn-success"  data-toggle="modal" data-target="#modal_AddOutline">新增大綱</button>
+
+
+                <!-- <div class="panel-body" style="padding:5px 5px 5px 50px" id="sum_by_tam">
+                    <div class="big-box" >
+                        <div class="kpi-box level2">
+                            <i class="fa fa-code-fork"></i>
+                            <div class="count-number">
+                                <span class="kpi-number" id="span_kpi_complete_survey">0</span>
+                                <span class="kpi-unit" id="span_unit_complete_survey">/0</span>
+                            </div>
+                            <span class="count-name">Complete Survey</span>
+                        </div>
+                    </div>
+                    <div class="big-box" >
+                        <div class="kpi-box level2">
+                            <i class="fa fa-code-fork"></i>
+                            <div class="count-number">
+                                <span class="kpi-number" id="span_kpi_complete_comment">0</span>
+                                <span class="kpi-unit" id="span_unit_complete_comment">/0</span>
+                            </div>
+                            <span class="count-name">Complete Comment</span>
+                        </div>
+                    </div> -->
+
+
+                    
+                </div>
+                <script>
+                    function filterButton(input) {
+                       
+                        div_role = document.getElementById("divFilterByRole");
+                        div_scene = document.getElementById("divFilterByScene");
+                        
+                        if(input =="role"){
+                            div_role.style.display = "inline"
+                            div_scene.style.display = "none"
+                        }else if(input =="scene"){
+                            div_role.style.display = "none"
+                            div_scene.style.display = "inline"
+                        }
+                      
+                    }
+                </script>
+                <script>
+                    function filterRole(input) {
+                         var table, tr, td, i, txtValue;
+                        table = document.getElementById("outlineTable");
+
+                        tr = table.getElementsByTagName("tr");
+                        console.log(input)
+                        
+                      if(input =="All"){
+                        for (i = 0; i < tr.length; i++) {
+                            td = tr[i].getElementsByTagName("td")[4];
+                           
+                            tr[i].style.display = "";
+                               
+                             
+                        }
+                      }else{
+                        for (i = 0; i < tr.length; i++) {
+                            td = tr[i].getElementsByTagName("td")[4];
+                            if (td) {
+                                txtValue = td.innerHTML;
+                                console.log(txtValue);
+                                if (txtValue.indexOf(input) > -1) {
+                                tr[i].style.display = "";
+                                } else {
+                                tr[i].style.display = "none";
+                                }
+                            }       
+                        }
+                      }
+                      
+                    }
+                </script>
+                <script>
+                    function filterScene(input) {
+                         var table, tr, td, i, txtValue;
+                        table = document.getElementById("outlineTable");
+
+                        tr = table.getElementsByTagName("tr");
+                        console.log(input)
+                        
+                      if(input =="All"){
+                        for (i = 0; i < tr.length; i++) {
+                            td = tr[i].getElementsByTagName("td")[2];
+                           
+                            tr[i].style.display = "";
+                               
+                             
+                        }
+                      }else{
+                        for (i = 0; i < tr.length; i++) {
+                            td = tr[i].getElementsByTagName("td")[2];
+                            if (td) {
+                                txtValue = td.innerHTML;
+                                console.log(txtValue);
+                                if (txtValue.indexOf(input) > -1) {
+                                tr[i].style.display = "";
+                                } else {
+                                tr[i].style.display = "none";
+                                }
+                            }       
+                        }
+                      }
+                      
+                    }
+                </script>
+                <hr />
+
+                <table class="table table-striped" id="outlineTable">
+                    <thead>
+                        <tr>
+                            <th style="width:50px">序號</th>
+                            <th style="width:700px;padding-left:20px">分場大綱</th>
+                            <th style="width:100px">場景</th>
+                            <th style="width:50px"></th>
+                            <th>角色</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+                
+                <script src="/js/Outline/getOutline.js"></script>
+                <!-- <div class="loader loader-4" id="loader-sq">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div> -->
+                <script type="text/javascript">
+                    $('tbody').sortable();
+                  </script>
+
+            </div>
+
+        </div>
+        <hr />
+
+<!-- Modal -->
+<div class="modal fade" id="modal_AddOutline" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">新增大綱</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>大綱</label>
+                    <textarea id="new_acct_alias" placeholder="輸入分場大綱" class="form-control" rows="5" ></textarea>
+                    <br/>
+                    <label>場景</label>
+                    <select class="form-control" id="sel1">
+                        <option value="1">飛機場</option>
+                        <option value="2">艾拉家</option>
+                        <option value="3">東翼大學校園</option>
+                        <option value="4">東翼隊休息室</option>
+                        <option value="5">東翼隊球場</option>
+                        <option value="6">UFA會議室</option>
+                        <option value="7">西門隊總教練辦公室</option>
+                        <option value="8">比賽 - 足球場</option>
+                        <option value="9">當鋪</option>
+                        <option value="10">海邊集訓地 - 球場</option>
+                        <option value="11">海邊集訓地 - 澡堂</option>
+                        <option value="12">海邊集訓地 - 通舖</option>
+                        <option value="13">海邊集訓地 - 艾拉臥室</option>
+                        <option value="14">比賽 - 休息室</option>
+                        <option value="15">比賽 - 場地外圍</option>
+                    </select>
+                    <br/>
+                    <label>場景描述</label>
+                    <input type="text" class="form-control" id="usr" placeholder="日/夜...等">
+                    
+                    <br/>
+                    <label>角色</label>
+                    <br/>
+                    <label class="checkbox-inline"><input type="checkbox" value="1">艾拉</label>
+                    <label class="checkbox-inline"><input type="checkbox" value="2">王冠強</label>
+                    <label class="checkbox-inline"><input type="checkbox" value="3">王子</label>
+                    <label class="checkbox-inline"><input type="checkbox" value="4">Queen</label>
+                    <label class="checkbox-inline"><input type="checkbox" value="5">Jacky</label>
+                    <label class="checkbox-inline"><input type="checkbox" value="6">恩師</label>
+                    <label class="checkbox-inline"><input type="checkbox" value="7">Francis</label>
+                    <label class="checkbox-inline"><input type="checkbox" value="8">Stone</label>
+                    <label class="checkbox-inline"><input type="checkbox" value="9">Irving</label>
+                    <label class="checkbox-inline"><input type="checkbox" value="10">嘉能</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="addUser()">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal_acct_permission_change" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Change Permission</h4>
+            </div>
+            <div class="modal-body">
+                <label>TAM Alias:</label>
+                <input id="to_be_change_acct" type="text" style="width:300px;padding-left:5px"></input>
+                <br/>
+                <label>Current Permission</label>
+                <input id="to_be_change_permission" type="text" style="width:300px;padding-left:5px"></input>
+            </div>
+            <div class="modal-body">
+                <label>New Permission:</label>
+                <input id="change_permission" type="text" placeholder="choose permission: guest, pilot, gcr" style="width:300px;padding-left:5px"></input>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="changeAcctPermission()">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+       
+<script>    
+    function addOutline() {
+        // alert('New value: ' + myRadio.value);
+        // alert('Name: ' + myRadio.name);
+        // optradio_q2_2
+
+        new_acct_alias = document.getElementById("new_acct_alias").value;
+        new_permission = document.getElementById("new_permission").value;
+        // 
+        $.ajax({
+            // url: '/json/mock/cx_score_detail.json',
+            url: '/addUser',
+            type: 'POST',
+            data: {acct_alias:new_acct_alias,permission:new_permission},
+            dataType: 'json',
+            success: function (json) {
+                if(json.result!="success"){
+                    console.log("Update detail")
+                    console.log(json);
+                    alert(json.message);
+                    location.reload();
+                }else{
+                    console.log("Update detail")
+                    console.log(json);
+                }
+                
+                
+            }
+        });       
+    }
+    function changeAcctPermission() {
+        // alert('New value: ' + myRadio.value);
+        // alert('Name: ' + myRadio.name);
+        // optradio_q2_2
+
+        to_be_change_acct = document.getElementById("to_be_change_acct").value;
+        to_be_change_permission = document.getElementById("to_be_change_permission").value;
+        change_permission = document.getElementById("change_permission").value;
+
+        if(change_permission.length<1){
+            alert("Please input new permission.");
+        }else{
+
+            $.ajax({
+                // url: '/json/mock/cx_score_detail.json',
+                url: '/changeAcctPermission',
+                type: 'POST',
+                data: {acct_alias:to_be_change_acct,permission:change_permission},
+                dataType: 'json',
+                success: function (json) {
+                    if(json.result!="success"){
+                        console.log("Update detail")
+                        console.log(json);
+                        alert(json.message);
+                        location.reload();
+                    }else{
+                        console.log("Update detail")
+                        console.log(json);
+                    }
+                    
+                    
+                }
+            });  
+        }
+
+             
+    }
+    function handleChangeScore(myItem) {
+        // alert('New value: ' + myRadio.value);
+        // alert('Name: ' + myRadio.name);
+        // alert("test");
+        var div_id = myItem.id.replace("change_","rating-block-");
+        
+        // alert($("#"+div_id).getAttribute('data-value'))
+        if($("#"+div_id).is(":visible") ){
+            $("#"+div_id).hide();
+        }else{
+            
+            $("#"+div_id).show();
+        }
+        
+        
+
+    }
+    
+</script>
+
+</body>
+
+</html>

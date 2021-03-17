@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>建立工單</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- import Bootstrap 3  -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> 
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script> 
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.5/css/bootstrap-select.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.5/js/bootstrap-select.min.js"></script>
+
+    <!-- import react  package-->
+    <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+    <!-- import Redux  -->
+    <script src="https://unpkg.com/redux@3.7.2/dist/redux.min.js"></script>
+
+    <!-- import D3.js -->
+    <script src="http://d3js.org/d3.v4.min.js"></script>
+    <!-- <link rel="stylesheet" href="/web/css/barchart.css"> -->
+
+    <!-- import css -->
+    <!-- <link rel="stylesheet" href="/web/css/portal.css"> -->
+    <!-- <link rel="stylesheet" href="/web/css/capsule.css"> -->
+    <!-- <link rel="stylesheet" href="/web/css/loader.css"> -->
+    <!-- <link rel="stylesheet" href="/web/css/report.css"> -->
+
+
+</head>
+
+
+<body data-spy="scroll" data-target=".navbar" data-offset="50">
+
+    <nav class="nav navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/index.html">金律鑫 MES</a>
+            </div><ul class="nav navbar-nav">
+                <!-- <li><a href="/pages/partsReport.html">料號報表</a></li> -->
+                <li><a href="/pages/Dashboard_Workitem.html">生產報表</a></li>
+                <li><a href="/pages/Dashboard_Prepare.html">製程看板</a></li>
+                <li><a href="/pages/Dashboard_Test.html">生產看板</a></li>
+                <li><a href="/pages/Report_Test.html">生產稼動表</a></li>
+            </ul>
+        </div>
+    </nav>
+    <style>
+        .headerDivider1 { 
+    border-left:1px solid #38546d; 
+    border-right:1px solid #16222c; 
+    height:80px; 
+    position:absolute; 
+    right:249px; 
+    top:10px; 
+} 
+.verticalDivider { 
+    
+    border-right:1px solid gray; 
+    height:20px; 
+    margin-left:10px;
+    margin-right:10px;
+    
+    
+} 
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+    td {
+        height:35px;
+        /* width:350px; */
+        padding:5px;
+    }
+    .spacetd{
+        width:100%;
+    }
+</style>
+
+    <div class="tab-content">
+
+        <!-- 3 Service Quota -->
+        <div id="servicequota" class="tab-pane fade container in active">
+
+            <div class="table-responsive custom-table-width">
+                <h3>建立工單</h3>
+
+                <h4><span class="glyphicon glyphicon-stop"></span> 基本資訊:</h4>
+                <div style="padding-left:15px ; background-color:rgba(240,240,240,0.5)">
+                    <table>
+                        <tr>
+                            <!-- <td>
+                                <label>工單編號: </label>
+                            </td>
+                            <td>
+                                <input placeholder="自動產生, ex: A1234567" style="margin-left:5px" readyonly> 
+                            </td> -->
+                            <td>
+                                <label>客戶: </label>
+                            </td>
+                            <td>
+                                <input id="customer_id" placeholder="T" class="form-control"  style="width:150px;margin-left:5px">
+                            </td>
+                            <td>
+                                <label>工單類別: </label>
+                            </td>
+                            <td>
+                                <select id="test_type" class="form-control"  style="margin-left:5px">
+                                    <option value="Test">Test</option>
+                                    <option value="RT">RT</option>
+                                </select>
+                            </td>
+                            <td class="spacetd"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>料號: </label>
+                            </td>
+                            <td>
+                                <input id="part_no" class="form-control"   placeholder="ex: 04CXR092H001" style="margin-left:5px" required> 
+                            </td>
+                            <td>
+                                <label>批號: </label>
+                            </td>
+                            <td>
+                                <input id="lot_no" class="form-control"  placeholder="ex: 7137"  style="width:120px;margin-left:5px"> 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>填寫人員: </label>
+                            </td>
+                            <td>
+                                <select class="form-control" id="creator">
+                                    <option>巴迪</option>
+                                    <option>徐志凱</option>
+                                    <option>蘇章順</option>
+                                    <option>日夜班交接人員</option>
+                                  </select>
+                            </td>
+                            <!-- <td style="widows: 30px;"></td> -->
+                            <!-- <td>
+                                <label>填寫時間: </label>
+                            </td>
+                            <td>
+                                <input id="create_dt"  placeholder="2021/1/24 10:04:38 " style="width:140px;margin-left:5px" readonly> 
+                            </td> -->
+                            <script>
+
+                            </script>
+                            
+                        </tr>
+                    </table>
+                </div>
+                <h4><span class="glyphicon glyphicon-stop"></span> 治具資訊: </h4>
+                <h5 style="color:darkred">(自動根據輸入的料號查詢，並帶入資料，不需要輸入）</h5>
+                <div style="padding-left:15px ; background-color:rgba(240,240,240,0.5)">
+                    <table>
+                        <tr>
+                            <td>
+                                <label>查詢料號: </label>
+                            </td>
+                            <td>
+                                <input placeholder="04CXR092H001" style="margin-left:5px" readonly> 
+                            </td>
+                            
+                            <td>
+                                <label>是否有現成治具? </label>
+                            </td>
+                            <td>
+                                <label class="radio-inline"><input type="radio" name="optradio" checked>有現成治具</label>
+                                <label class="radio-inline"><input type="radio" name="optradio">無現成治具，需準備治具</label>
+                            </td>
+                            
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>治具編號: </label>
+                            </td>
+                            <td>
+                                <input placeholder="xxxxxxxxx" style="margin-left:5px"> 
+                            </td>
+                            <td>
+                                <label>治具所在櫃位: </label>
+                            </td>
+                            <td>
+                                <input placeholder="34" style="margin-left:5px"> 
+                            </td>
+                            <td>
+                                <label>治具狀態: </label>
+                            </td>
+                            <td>
+                                <input placeholder="已被借出" style="margin-left:5px"> 
+                            </td>
+                            <td class="spacetd"></td>
+                        </tr>
+    
+                    </table>
+                </div>
+
+
+                <h4><span class="glyphicon glyphicon-stop"></span> 測試類別: </h4>
+                <div style="padding-left:15px ; background-color:rgba(240,240,240,0.5)">
+                    <table>
+                        <tr>
+                            <td>
+                                <label>測試類別: </label>
+                            </td>
+                            <td>
+                                <select id="test_style" placeholder="飛針" style="margin-left:5px"> 
+                                    <option value="萬用">萬用</option>
+                                    <option value="飛針">飛針</option>
+                                </select>
+                            </td>
+
+                            <td>
+                                <label>測試方法: </label>
+                            </td>
+                            <td>
+                                <input placeholder="四線" style="margin-left:5px"> 
+                            </td>
+                            
+                            
+                        </tr>
+    
+                    </table>
+                </div>
+                <h4><span class="glyphicon glyphicon-stop"></span> 測試參數: </h4>
+                <h5 style="color:darkred">(自動根據輸入的客戶編號查詢，並帶入資料，不需要輸入）</h5>
+                <div style="padding-left:15px ; background-color:rgba(240,240,240,0.5)">
+                    <table>
+                        <tr>
+                            <td>
+                                <label>程式名稱: </label>
+                            </td>
+                            <td>
+                                <input placeholder="T/H5900871B-R" style="margin-left:5px"> 
+                            </td>
+                            
+                            
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>電壓(v) </label>
+                            </td>
+                            <td>
+                                <input placeholder="250" style="margin-left:5px"> 
+                            </td>
+                            <td>
+                                <label>開路(ohm)</label>
+                            </td>
+                            <td>
+                                <input placeholder="30" style="width:120px;margin-left:5px"> 
+                            </td>
+    
+                            <td>
+                                <label>絕緣(Mohm)</label>
+                            </td>
+                            <td>
+                                <input placeholder="100" style="width:120px;margin-left:5px"> 
+                            </td>
+                        </tr>
+    
+                    </table>
+                </div>
+
+                
+               
+                <hr>
+               
+                    
+            </div>
+
+            <div style="float:right">
+                <button type="button" class="btn btn-success" id="btn_create_workitem">建立工單</button>
+                <button type="button" class="btn btn-danger" id="btn_cancel">取消</button>
+            </div>
+                
+            <script type="text/javascript">
+                document.getElementById("btn_create_workitem").onclick = function () {
+                    addWorkitem();
+                };
+
+                document.getElementById("btn_cancel").onclick = function () {
+                    location.href = "/pages/Dashboard_Workitem.html";
+                };
+            </script>
+
+        </div>
+
+    </div>
+    <hr />
+
+
+       
+<script>    
+    function addWorkitem() {
+        // alert('New value: ' + myRadio.value);
+        // alert('Name: ' + myRadio.name);
+        // optradio_q2_2
+
+        customer_id = document.getElementById("customer_id").value;
+        part_no = document.getElementById("part_no").value;
+        lot_no = document.getElementById("lot_no").value;
+
+        creator = document.getElementById("creator").value;
+
+        test_style = document.getElementById("test_style").value;
+        // create_dt = document.getElementById("create_dt").value;
+        
+        // 
+        $.ajax({
+            // url: '/json/mock/cx_score_detail.json',
+            url: '/addWorkitem',
+            type: 'POST',
+            data: {customer_id:customer_id,
+                    part_no:part_no,
+                    lot_no:lot_no,
+                    creator:creator,
+                    test_style:test_style},
+            dataType: 'json',
+            success: function (json) {
+                if(json.result!="success"){
+                    console.log("Update detail")
+                    console.log(json);
+                    alert(json.message);
+                    location.reload();
+
+                }else{
+                    console.log("Update detail")
+                    console.log(json);
+
+                    alert(json.message);
+
+                    location.href = "/pages/Dashboard_Prepare.html";
+                }
+                
+                
+            }
+        });       
+  
+        
+
+    }
+    
+</script>
+
+</body>
+
+</html>

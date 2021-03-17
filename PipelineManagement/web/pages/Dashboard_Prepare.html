@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>製程儀表板</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- import Bootstrap 3  -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> 
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script> 
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.5/css/bootstrap-select.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.5/js/bootstrap-select.min.js"></script>
+
+    <!-- import react  package-->
+    <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+    <!-- import Redux  -->
+    <script src="https://unpkg.com/redux@3.7.2/dist/redux.min.js"></script>
+
+    <!-- import D3.js -->
+    <script src="http://d3js.org/d3.v4.min.js"></script>
+    <!-- <link rel="stylesheet" href="/web/css/barchart.css"> -->
+
+    <!-- import css -->
+    <!-- <link rel="stylesheet" href="/web/css/portal.css"> -->
+    <!-- <link rel="stylesheet" href="/web/css/capsule.css"> -->
+    <!-- <link rel="stylesheet" href="/web/css/loader.css"> -->
+    <!-- <link rel="stylesheet" href="/web/css/report.css"> -->
+
+
+</head>
+
+
+<body data-spy="scroll" data-target=".navbar" data-offset="50">
+
+    <nav class="nav navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/index.html">金律鑫 MES</a>
+            </div><ul class="nav navbar-nav">
+                <!-- <li><a href="/pages/partsReport.html">料號報表</a></li> -->
+                <li><a href="/pages/Dashboard_Workitem.html">生產報表</a></li>
+                <li><a href="/pages/Dashboard_Prepare.html">製程看板</a></li>
+                <li><a href="/pages/Dashboard_Test.html">生產看板</a></li>
+                <li><a href="/pages/Report_Test.html">生產稼動表</a></li>
+            </ul>
+        </div>
+    </nav>
+    <style>
+        .headerDivider1 { 
+    border-left:1px solid #38546d; 
+    border-right:1px solid #16222c; 
+    height:80px; 
+    position:absolute; 
+    right:249px; 
+    top:10px; 
+} 
+.verticalDivider { 
+    
+    border-right:1px solid gray; 
+    height:20px; 
+    margin-left:10px;
+    margin-right:10px;
+    
+    
+} 
+
+    </style>
+
+    <div class="tab-content" style="padding-left:10px">
+
+        <!-- 3 Service Quota -->
+        <style>
+
+            .panel_waitings {
+                width:250px;
+                display:inline-flex;
+                margin: 5px 5px 5px 5px;
+                /* border-style:solid; */
+                /* border-width:thin; */
+                /* border:1; */
+                /* border-color:gray; */
+                box-shadow: 2px 2px #aaaaaa;
+                background-color:lightskyblue;
+                border-radius:5px;
+
+            }
+            .panel_working {
+                width:250px;
+                display:inline-flex;
+                margin: 5px 5px 5px 5px;
+                /* border-style:solid; */
+                /* border-width:thin; */
+                /* border:1; */
+                /* border-color:gray; */
+                box-shadow: 2px 2px #aaaaaa;
+                background-color:lightyellow;
+                border-radius:8px;
+                height:90px;
+
+            }
+
+            .panel_idle {
+                width:250px;
+                display:inline-flex;
+                margin: 5px 5px 5px 5px;
+                /* border-style:solid;
+                border-width:thin;
+                border:1; */
+                /* border-color:gray; */
+                box-shadow: 2px 2px #aaaaaa;
+                background-color:lightgray;
+                border-radius:8px;
+                height:90px;
+
+            }
+            table{
+                margin:5px 5px 5px 5px ;
+                
+            }
+            th{
+                width:300px;
+            }
+        </style>
+         <h3>製程表板</h3>
+         <hr>
+        <table>
+            <tr>
+                <th>工程</th>
+                <th>鑽孔</th>
+                <th>組裝</th>
+                <th>本日完工(花費時間)</th>
+            </tr>
+
+            <tr  style="height: 100px;vertical-align:top">
+                <td id="prepare_waiting_eng" style="padding-left:20px">
+                    待處理:<br/>
+                </td>
+                <td id="prepare_waiting_hole">
+                    待處理:<br/>
+                </td>
+                <td id="prepare_waiting_assemble">
+                    待處理:<br/>
+                </td>
+                <td id="prepare_ready">
+                    
+                </td>
+                <script src="/js/Prepare/getPrepareWaiting.js"></script>
+
+                <script src="/js/Prepare/getPrepareDone.js"></script>
+            <tr>
+                <td>
+                    <div id="prepare_work_tool_eng"  class="table-responsive custom-table-width"  class="panel_waiting">
+               
+                
+                    </div>
+                </td>
+                <td>
+                    <div id="prepare_work_tool_hole"  class="table-responsive custom-table-width" class="panel_waiting">
+               
+                
+                    </div>
+                </td>
+                <td>
+                    <div id="prepare_work_tool_assemble"  class="table-responsive custom-table-width" class="panel_waiting">
+               
+                
+                    </div>
+                </td>
+                <td></td>
+
+            </tr>
+
+            <script src="/js/Prepare/getPrepareToolStatus.js"></script>
+        </table>
+            
+            
+        <script>
+            function checkInPrepareRecord(record_id,type){
+                $('#change_record_id').val(record_id)
+                $('#select_type').val(type)
+                $('#select_tool_id').empty();
+
+                if(type == "工程"){
+                    $('#select_tool_id').append('<option value="工程A">工程A</option>');
+                    $('#select_tool_id').append('<option value="工程B">工程B</option>');
+                    $('#select_tool_id').append('<option value="工程C">工程C</option>');
+                    $('#select_tool_id').append('<option value="工程D">工程D</option>');
+                    
+                }else if(type =="鑽孔"){
+                    $('#select_tool_id').append('<option value="鑽孔A">鑽孔A</option>');
+                    $('#select_tool_id').append('<option value="鑽孔B">鑽孔B</option>');
+                    $('#select_tool_id').append('<option value="鑽孔C">鑽孔C</option>');
+                    $('#select_tool_id').append('<option value="鑽孔D">鑽孔D</option>');
+
+                }else if(type =="組裝"){
+                    $('#select_tool_id').append('<option value="組裝A">組裝A</option>');
+                    $('#select_tool_id').append('<option value="組裝B">組裝B</option>');
+                    $('#select_tool_id').append('<option value="組裝C">組裝C</option>');
+                    $('#select_tool_id').append('<option value="組裝D">組裝D</option>');
+
+
+                }
+                
+                
+                $('#checkInPrepareRecordModal').modal('show');
+            }
+            function changePrepareRecordPhase(record_id, type, tool_id,part_no){
+                $('#select_work_record_id').val(record_id)
+                $('#select_work_type').val(type)
+                $('#select_work_tool_id').val(tool_id)
+                $('#select_work_part_no').val(part_no)
+
+                $('#changePrepareRecordModal').modal('show');
+            }
+
+            function finishPrepareRecordPhase(record_id, type, tool_id,part_no){
+                $('#select_work_record_id').val(record_id)
+                $('#select_work_type').val(type)
+                $('#select_work_tool_id').val(tool_id)
+                $('#select_work_part_no').val(part_no)
+
+                $('#finishPrepareRecordModal').modal('show');
+            }
+        </script>
+        
+        <hr />
+
+<!-- Modal -->
+<div class="modal fade" id="checkInPrepareRecordModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">治具準備紀錄</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+
+                    <label>工段:</label>
+                    <input id="select_type" class="form-control"  readonly>
+                    <br/>
+                    <label>選擇機台:</label>
+                    <select id="select_tool_id" class="form-control" ></select>
+                    <br/>
+                    <br/>
+                    <h5>確認選擇機台進行製程?</h5>
+                    <!-- <label>是否完成?進入下一階段?</label> -->
+                    <input id="change_record_id" hidden>
+                </div>
+            </div>
+            <div class="modal-footer">
+                
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="submitCheckInPrepareRecord()">確定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="changePrepareRecordModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">治具準備紀錄</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+
+                    <label>工段:</label>
+                    <input id="select_work_type" class="form-control"  readonly>
+                    <br/>
+                    <label>目前機台:</label>
+                    <input id="select_work_tool_id" class="form-control" readonly>
+                    <br/>
+                    <label>目標料號:</label>
+                    <input id="select_work_part_no" class="form-control" readonly>
+                    <br/>
+                    <br/>
+                    <h5>若工段已完成，請點選「完成，進行下一步」</h5>
+                    <!-- <label>是否完成?進入下一階段?</label> -->
+                    <input id="select_work_record_id" hidden>
+                </div>
+            </div>
+            <div class="modal-footer">
+                
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="submitChangePrepareRecordPhase()">完成，進行下一步</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="finishPrepareRecordModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">治具完成，選擇治具櫃位</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>治具名稱(非必填):</label>
+                    <input id="new_device_name" class="form-control" >
+                    <table>
+                        <tr>
+                        </tr>
+                        <tr>
+                            <td><label>治具類別(單面/雙面):</label></td>
+                            <td style="padding-left:10px"><input id="new_device_type" class="form-control" style="width:80px"></td>
+                            <td style="padding-left:40px"><label>治具針數:</label></td>
+                            <td style="padding-left:10px"><input id="new_device_type" class="form-control" style="width:50px" ></td>
+                            
+                        </tr>
+                    </table>
+                    
+                    <hr>
+                    
+                    <label>治具適用料號:</label>
+                    <input id="select_work_part_no" class="form-control" readonly>
+                    <hr>
+                    <label>選擇治具櫃位</label>
+                    <h5>(可選擇的都是空著的櫃位)</h5>
+                    <select id="select_prepare_box" class="form-control">
+                        <option value="1">1</option>
+                        <option value="3">3</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="34">34</option>
+                    </select>
+                    <label>備註:</label>
+                    <textarea id="remark" class="form-control" >
+                        </textarea>
+                    
+                    <br/>
+                    <br/>
+                    <h5></h5>
+                    <!-- <label>是否完成?進入下一階段?</label> -->
+                    <input id="select_work_record_id" hidden>
+                </div>
+            </div>
+            <div class="modal-footer">
+                
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="submitFinishPrepareRecordPhase()">完成治具製程</button>
+            </div>
+        </div>
+    </div>
+</div>
+       
+<script> 
+    function submitCheckInPrepareRecord() {
+        // alert('New value: ' + myRadio.value);
+        // alert('Name: ' + myRadio.name);
+        // optradio_q2_2
+
+         record_id = document.getElementById("change_record_id").value;
+         select_tool_id = document.getElementById("select_tool_id").value;
+        // new_permission = document.getElementById("new_permission").value;
+        // 
+        $.ajax({
+            url: '/prepare/checkInPrepareRecord',
+            type: 'POST',
+            data: {record_id:record_id,select_tool_id:select_tool_id},
+            dataType: 'json',
+            success: function (json) {
+                if(json.result!="success"){
+                    console.log("Update detail")
+                    console.log(json);
+                    alert(json.message);
+                    location.reload();
+                }else{
+                    console.log("Update detail")
+                    console.log(json);
+                    alert(json.message);
+                    location.reload();
+                }
+                
+                
+            }
+        });       
+    }   
+    function submitChangePrepareRecordPhase() {
+        // alert('New value: ' + myRadio.value);
+        // alert('Name: ' + myRadio.name);
+        // optradio_q2_2
+
+        record_id = document.getElementById("select_work_record_id").value;
+        // new_permission = document.getElementById("new_permission").value;
+        // 
+        $.ajax({
+            // url: '/json/mock/cx_score_detail.json',
+            url: '/prepare/changePrepareRecordPhase',
+            type: 'POST',
+            data: {record_id:record_id},
+            dataType: 'json',
+            success: function (json) {
+                if(json.result!="success"){
+                    console.log("Update detail")
+                    console.log(json);
+                    alert(json.message);
+                    location.reload();
+                }else{
+                    console.log("Update detail")
+                    console.log(json);
+                    alert(json.message);
+                    location.reload();
+                }
+                
+                
+            }
+        });       
+    }   
+    function submitFinishPrepareRecordPhase() {
+        // alert('New value: ' + myRadio.value);
+        // alert('Name: ' + myRadio.name);
+        // optradio_q2_2
+
+        record_id = document.getElementById("select_work_record_id").value;
+        // new_permission = document.getElementById("new_permission").value;
+        // 
+        $.ajax({
+            // url: '/json/mock/cx_score_detail.json',
+            url: '/prepare/finishPrepareRecordPhase',
+            type: 'POST',
+            data: {record_id:record_id},
+            dataType: 'json',
+            success: function (json) {
+                if(json.result!="success"){
+                    console.log("Update detail")
+                    console.log(json);
+                    alert(json.message);
+                    location.reload();
+                }else{
+                    console.log("Update detail")
+                    console.log(json);
+                    alert(json.message);
+                    location.reload();
+                }
+                
+                
+            }
+        });       
+    }
+    
+</script>
+
+</body>
+
+</html>

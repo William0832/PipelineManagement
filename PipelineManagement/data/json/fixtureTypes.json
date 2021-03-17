@@ -1,0 +1,100 @@
+[
+  {
+    "_etag": "{\"$oid\":\"5c3cdf36a7e83200094c6083\"}",
+    "_id": "{\"$oid\":\"5c3cdf2e62643d96e189b15e\"}",
+    "createDate": "{\"$date\":\"2020-03-12T00:00:00Z\"}",
+    "id": "5c3cdf2e62643d96e189b15e",
+    "name": "單面"
+  },
+  {
+    "_etag": "{\"$oid\":\"5c3cdf4aa7e83200094c6085\"}",
+    "_id": "{\"$oid\":\"5c3cdf4262643d96e189b16c\"}",
+    "createDate": null,
+    "id": "5c3cdf4262643d96e189b16c",
+    "name": "雙面"
+  },
+  {
+    "_etag": "{\"$oid\":\"5f121e001ed4af0007502fd1\"}",
+    "_id": "{\"$oid\":\"5c3cdf5862643d96e189b17b\"}",
+    "createDate": null,
+    "id": "5c3cdf5862643d96e189b17b",
+    "name": "EZG9層"
+  },
+  {
+    "_etag": "{\"$oid\":\"5c3cdf70a7e83200094c6089\"}",
+    "_id": "{\"$oid\":\"5c3cdf6762643d96e189b186\"}",
+    "createDate": null,
+    "id": "5c3cdf6762643d96e189b186",
+    "name": "EZG18層"
+  },
+  {
+    "_etag": "{\"$oid\":\"5c3cdf7ca7e83200094c608b\"}",
+    "_id": "{\"$oid\":\"5c3cdf7762643d96e189b194\"}",
+    "createDate": null,
+    "id": "5c3cdf7762643d96e189b194",
+    "name": "ATG兩倍密"
+  },
+  {
+    "_etag": "{\"$oid\":\"5c3cdf8da7e83200094c608d\"}",
+    "_id": "{\"$oid\":\"5c3cdf8562643d96e189b1a1\"}",
+    "createDate": null,
+    "id": "5c3cdf8562643d96e189b1a1",
+    "name": "ATG兩倍密大治具"
+  },
+  {
+    "_etag": "{\"$oid\":\"5c3cdf96a7e83200094c608f\"}",
+    "_id": "{\"$oid\":\"5c3cdf8e62643d96e189b1ac\"}",
+    "createDate": null,
+    "id": "5c3cdf8e62643d96e189b1ac",
+    "name": "ATG四倍密"
+  },
+  {
+    "_etag": "{\"$oid\":\"5c3cdf9fa7e83200094c6091\"}",
+    "_id": "{\"$oid\":\"5c3cdf9862643d96e189b1b7\"}",
+    "createDate": null,
+    "id": "5c3cdf9862643d96e189b1b7",
+    "name": "ATG八倍密"
+  },
+  {
+    "_etag": "{\"$oid\":\"5c3cdfa6a7e83200094c6093\"}",
+    "_id": "{\"$oid\":\"5c3cdfa062643d96e189b1c2\"}",
+    "createDate": null,
+    "id": "5c3cdfa062643d96e189b1c2",
+    "name": "指定飛針"
+  },
+  {
+    "_etag": "{\"$oid\":\"5c3cdfada7e83200094c6095\"}",
+    "_id": "{\"$oid\":\"5c3cdfa862643d96e189b1cd\"}",
+    "createDate": null,
+    "id": "5c3cdfa862643d96e189b1cd",
+    "name": "飛針"
+  },
+  {
+    "_etag": null,
+    "_id": "{\"$oid\":\"5e69f8e37c83e50f44340bd2\"}",
+    "createDate": null,
+    "id": null,
+    "name": "指定飛針ATG-S3"
+  },
+  {
+    "_etag": null,
+    "_id": "{\"$oid\":\"5e69f8fc7c83e50f44340bd3\"}",
+    "createDate": null,
+    "id": null,
+    "name": "指定飛針ATG機台"
+  },
+  {
+    "_etag": "{\"$oid\":\"5e70460da1db300006d0c956\"}",
+    "_id": "{\"$oid\":\"5e70460d2a9f5f00f3257bd5\"}",
+    "createDate": null,
+    "id": null,
+    "name": "客供治具"
+  },
+  {
+    "_etag": "{\"$oid\":\"5e704620a1db300006d0c957\"}",
+    "_id": "{\"$oid\":\"5e7046202a9f5f00f3257be6\"}",
+    "createDate": null,
+    "id": null,
+    "name": "EZG代鑽"
+  }
+]
