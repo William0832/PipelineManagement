@@ -62,53 +62,51 @@
   
       <div class="table-responsive custom-table-width">
         <h3 class='title'>建立客戶資料</h3>
-  
-        <h4><span class="glyphicon glyphicon-stop"></span> 基本資訊:</h4>
-        <div style="padding-left:15px ; background-color:rgba(240,240,240,0.5)">
-          <form id='customer-input-form'>
-            <div class="form-group">
-              <label>
-                顧客代號
-                <input type="text" class="form-control" name='customer'>
-              </label>
-            </div>
+        <form id='customer-input-form'>
+          <h4><span class="glyphicon glyphicon-stop"></span> 基本資訊:</h4>
+          <div class="bgc-secondary">
+              <div class="form-group">
+                <label class="control-label">
+                  顧客代號:
+                  <input type="text" class="form-control" name='customer' placeholder='' disabled>
+                </label>
+              </div>
+              <div class="form-group">
+                <label>
+                  Contact:
+                  <textarea class='form-control' name="contact" id="" rows="4"></textarea>
+                </label>
+              </div>   
 
-            <div class="form-group">
-              <label>
-                Testing Method
-                <textarea class='form-control' name="testing" cols="30" rows="3"></textarea>
-              </label>
-            </div>
-
-            <div class="form-group">
-              <label>
-                Markpoint Method
-                <textarea class='form-control' name="markpoint" cols="30" rows="3"></textarea>
-              </label>
-            </div>
-
-            <div class="form-group">
-              <label>
-                Stamp MEthod
-                <textarea class='form-control' name="stamp" cols="30" rows="3"></textarea>
-              </label>
-            </div>
-
-            <div class="form-group">
-              <label>
-                Package Method
-                <textarea class='form-control' name="package" cols="30" rows="3"></textarea>
-              </label>
-            </div>
-
-            <div class="form-group">
-              <label>
-                Contact
-                <textarea class='form-control' name="contact" id="" cols="30" rows="3"></textarea>
-              </label>
-            </div>   
-          </form>
-        </div>
+          </div>
+          <h4><span class="glyphicon glyphicon-stop"></span> 注意事項:</h4>
+          <div class="bgc-secondary">   
+              <div class="form-group">
+                <label>
+                  Testing Method:
+                  <textarea class='form-control' name="testing" rows="4"></textarea>
+                </label>
+              </div>
+              <div class="form-group">
+                <label>
+                  Markpoint Method:
+                  <textarea class='form-control' name="markpoint" rows="4"></textarea>
+                </label>
+              </div>
+              <div class="form-group">
+                <label>
+                  Stamp MEthod:
+                  <textarea class='form-control' name="stamp" rows="4"></textarea>
+                </label>
+              </div>
+              <div class="form-group">
+                <label>
+                  Package Method:
+                  <textarea class='form-control' name="package" rows="4"></textarea>
+                </label>
+              </div>
+          </div>
+        </form>
 
       </div>
   

@@ -13,6 +13,13 @@
   margin-left: 10px;
   margin-right: 10px;
 }
+.bgc-secondary {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 5px;
+  background-color: rgba(240,240,240,0.5);
+}
+
 #custom-table td {
   vertical-align: middle;
 }
@@ -33,3 +40,6 @@
   text-align: center;
 }
 
+#customer-input-form textarea {
+  width: 600px
+}

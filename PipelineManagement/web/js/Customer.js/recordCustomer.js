@@ -1,20 +1,36 @@
 ;(() => {
   const URL = window.location.href
+  let isSubmitting = false
   const customer_id = +URL.split('/')[URL.split('/').length - 1]
-  const table = document.getElementById('customer-input-form')
+  // const table = document.getElementById('customer-input-form')
+  const input = document.querySelector('input')
+  const textareaList = document.querySelectorAll('textarea')
   const submitBtn = document.getElementById("btn-submit")
   const title = document.querySelector('.title')
-
+  let data = {}
   let handleSubmit = null
-  const addCustomer = () => {
-    console.log('add customer')
-    const data = {}
-    Array.from(table.children).forEach(e => {
-      let input = e.querySelector('input') || e.querySelector('textarea')
-      const { name, value } = input
-      data[name] = value
+  const loadInputTOData = () => {
+    customer_id
+    ? data[input.name] = input.placeholder
+    : data[input.name] = input.value
+    textareaList.forEach(e => {
+      data[e.name] = e.value
     })
-    // console.log(data)
+  }
+  const createCustomer = () => {
+    isSubmitting = true
+    console.log('add customer')
+    loadInputTOData()
+    if (!input.value) {
+      const form = input.closest('.form-group')
+      form.scrollIntoView()
+      form.classList.toggle('has-error')
+      setTimeout(() => {
+        alert('請輸入顧客代號')
+        form.classList.toggle('has-error')
+        isSubmitting =false
+      }, 500)
+    }
     $.ajax({
       url: '/addCustomer',
       type: 'POST',
@@ -22,20 +38,18 @@
       dataType: 'json',
       success (json) {
         console.log('success')
+        isSubmitting = false
       },
       fail (json) {
         console.log('fail')
+        isSubmitting = false
       }
     })
   }
   const updateCustomer = ({ id }) => {
+    isSubmitting = true
     console.log('update customer')
-    const data = {}
-    Array.from(table.children).forEach(e => {
-      let input = e.querySelector('input') || e.querySelector('textarea')
-      const { name, value } = input
-      data[name] = value
-    })
+    loadInputTOData()
     $.ajax({
       url: `/updateCustomer/${id}`,
       type: 'POST',
@@ -43,25 +57,28 @@
       dataType: 'json',
       success (json) {
         console.log('success')
+        isSubmitting = false    
       },
       fail (json) {
         console.log('fail')
+        isSubmitting = false
+
       }
     })
   }
   const getCustomer = ({ id }) => {
-    console.log('get customer')
-    const table = document.getElementById('customer-input-form')
     $.ajax({
       url: `/customers/${id}`,
       type: 'GET',
       dataType: 'json',
       success (json) {
-        const [data] = json.results
-        Array.from(table.children).forEach((e, i) => {
-          const input = e.querySelector('input') || e.querySelector('textarea')
-          const { name } = input
-          input.value = data[name]
+        const result = json.results[0]
+        data[input.name] = result[input.name]
+        input.placeholder = data[input.name]
+        textareaList.forEach((e, i) => {
+          const { name } = e
+          data[name] = result[name]
+          e.value = data[name]
         })
       },
       fail (json) {
@@ -79,13 +96,16 @@
       updateCustomer({ id: customer_id })
     }
   } else {
+    // open input
+    input.disabled = false
     // create customer 
     handleSubmit = () => {
-      addCustomer()
+      createCustomer()
     }
   }
 
   document.getElementById("btn-submit").onclick = function () {
+    if(isSubmitting) return 
     handleSubmit()
   }
   document.getElementById("btn-cancel").onclick = function () {
