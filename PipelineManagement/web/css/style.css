@@ -13,13 +13,15 @@
   margin-left: 10px;
   margin-right: 10px;
 }
+#custom-table td {
+  vertical-align: middle;
+}
 
 #custom-table > thead > tr th {
   width: 250px;
 }
 
 #custom-table > thead > tr th:nth-last-child(1){
-  vertical-align: middle;
   width: 200px;
 }
 
