@@ -1,0 +1,26 @@
+.headerDivider1 {
+  border-left: 1px solid #38546d;
+  border-right: 1px solid #16222c;
+  height: 80px;
+  position: absolute;
+  right: 249px;
+  top: 10px;
+}
+
+.verticalDivider {
+  border-right: 1px solid gray;
+  height: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+/* table {
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+} */
+
+#custom-table td {
+  align-items: center;
+  overflow: auto;
+}

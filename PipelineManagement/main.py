@@ -39,6 +39,115 @@ def getfile(filename):
 def send_web(path):
   return send_from_directory('web',path)
 
+# Method : GET /pages/Dashboard_Customer/id
+# Input : na
+# Description : 取得客戶資料頁面
+@app.route('/pages/Dashboard_Customer/<int:id>')
+def getCustomerEditPage(id):
+  return send_from_directory('web', 'pages/Record_Customer.html')
+
+# Method : GET /customers
+# Input : na
+# Description : 取得所有客戶資料清
+@app.route('/customers')
+def getCustomers():
+  conn = sqlite3.connect(DATABASE)
+  cursor = conn.cursor()
+  result = {}
+  result["results"] = []
+  search_sql = "SELECT * FROM customer ORDER BY customer_id"
+
+  print(search_sql)
+  cursor.execute(search_sql)
+  tables = cursor.fetchall()
+  
+  for record in tables:
+    r = {}
+    n = 0
+    for col in record:
+      key = cursor.description[n][0]
+      r[key] = col
+      n += 1
+    result["results"].append(r)
+
+  return jsonify(result)  
+
+# Method : GET /customers/id
+# Input : id
+# Description : 取得所有客戶資料清
+@app.route('/customers/<int:id>')
+def getCustomer(id):
+  print('get customer id',id)
+  conn = sqlite3.connect(DATABASE)
+  cursor = conn.cursor()
+  result = {}
+  result["results"] = []
+  sql = f'Select * From customer Where customer_id = {id}'
+  print(sql)
+  cursor.execute(sql)
+  tables = cursor.fetchall()
+  for record in tables:
+    r = {}
+    n = 0
+    for col in record:
+      key = cursor.description[n][0]
+      r[key] = col
+      n += 1
+    result["results"].append(r)
+  return jsonify(result)  
+
+# Method: POST / customer
+# Input: na
+# Description: 建立客戶資料
+@app.route('/addCustomer', methods=['POST'])
+def addCustomer():
+  # create_dt = datetime.datetime.today().strftime("%Y-%m-%d %H:%M:%S")
+  form =  request.form
+  colsStr = ''
+  cols = []
+  for k in form:
+    colsStr += f'{k}, '
+    cols.append(form[k])
+    v = form[k]
+  colsStr = colsStr[:-2]
+  questions  = ('?,'*len(cols))[:-1]
+  sql = f'INSERT INTO customer({colsStr}) VALUES ({questions})'
+  print(sql)
+  conn = sqlite3.connect(DATABASE)
+  cursor = conn.cursor()
+  cursor.execute(sql, cols)
+  conn.commit()
+
+  result = {}
+  result["result"] = "success"
+  result["message"] = "成功建立客戶資料" 
+  return jsonify(result)
+
+# Method: POST / customer/id
+# Input: id
+# Description: 更新客戶資料
+@app.route('/updateCustomer/<int:id>', methods=['POST'])
+def updateCustomer(id):
+  print('update customer id', id)
+  form = request.form
+
+  tempSql = ''
+  for k in form:
+    tempSql += f'{k} = "{form[k]}",'
+  tempSql = tempSql[:-1]
+  
+  conn = sqlite3.connect(DATABASE)
+  cursor = conn.cursor()
+  sql = f'UPDATE customer SET {tempSql} WHERE customer_id = {id}'
+  print(sql)
+  cursor.execute(sql)
+  conn.commit()
+
+  result = {}
+  result["result"] = "success"
+  result["message"] = "成功更新客戶資料" 
+  return jsonify(result)
+
 
 
 # Method : POST /addWorkitem
@@ -48,7 +157,6 @@ def send_web(path):
 @app.route('/addWorkitem', methods=['POST'])
 def addWorkitem():
 
-  
   create_dt = datetime.datetime.today().strftime("%Y-%m-%d %H:%M:%S")
   # uid = request.args.get('uid')
   customer_id = request.form['customer_id']
@@ -2498,47 +2606,47 @@ def checkCompleteComment(customer_name):
 # # Input : na
 # # Decription : addCustomer
 
-@app.route('/addCustomer', methods=['POST'])
-def addCustomer():
+# @app.route('/addCustomer', methods=['POST'])
+# # def addCustomer():
 
   
-  today = date.today().strftime("%Y-%m-%d")
-  # uid = request.args.get('uid')
-  customer_name = request.form['customer_name']
-  customer_domain = request.form['customer_domain']
-  tam_alias = request.form['tam_alias']
-  permission = checkUserPermission(tam_alias)
+#   today = date.today().strftime("%Y-%m-%d")
+#   # uid = request.args.get('uid')
+#   customer_name = request.form['customer_name']
+#   customer_domain = request.form['customer_domain']
+#   tam_alias = request.form['tam_alias']
+#   permission = checkUserPermission(tam_alias)
 
   
   
-  conn = sqlite3.connect(DATABASE)
-  cursor = conn.cursor()
+#   conn = sqlite3.connect(DATABASE)
+#   cursor = conn.cursor()
 
   
-  cursor.execute("select * from customer_info where customer_name like '"+customer_name+"'")
-  tables = cursor.fetchall()
+#   cursor.execute("select * from customer_info where customer_name like '"+customer_name+"'")
+#   tables = cursor.fetchall()
   
-  if len(tables) > 0:
+#   if len(tables) > 0:
 
-    result = {}
-    result["result"] = "fail"
-    result["message"] = "Add customer failed. The customer name is duplicate with exist workload. (customer domain: "+tables[0][6] +" , tam: "+ tables[0][1] + " )"
-    return jsonify(result)
+#     result = {}
+#     result["result"] = "fail"
+#     result["message"] = "Add customer failed. The customer name is duplicate with exist workload. (customer domain: "+tables[0][6] +" , tam: "+ tables[0][1] + " )"
+#     return jsonify(result)
   
-  else:
+#   else:
     
     
-    cursor.execute('insert into customer_info(customer_name, tam_1, customer_domain, poc) values (?, ?,?,?)', [customer_name,tam_alias,customer_domain, permission])
-    conn.commit()
-    cursor.execute('insert into customer_survey_overall(customer_name, summary,tamalias) values (?, ?,?)', [customer_name,"please input TAM's summary for the customer",tam_alias])
-    conn.commit()
-    cursor.execute('insert into customer_workload(customer_name) values (?)', [customer_name])
-    conn.commit()
+#     cursor.execute('insert into customer_info(customer_name, tam_1, customer_domain, poc) values (?, ?,?,?)', [customer_name,tam_alias,customer_domain, permission])
+#     conn.commit()
+#     cursor.execute('insert into customer_survey_overall(customer_name, summary,tamalias) values (?, ?,?)', [customer_name,"please input TAM's summary for the customer",tam_alias])
+#     conn.commit()
+#     cursor.execute('insert into customer_workload(customer_name) values (?)', [customer_name])
+#     conn.commit()
   
 
-  result = {}
-  result["result"] = "Success create customer: "+ customer_name
-  return jsonify(result)
+#   result = {}
+#   result["result"] = "Success create customer: "+ customer_name
+#   return jsonify(result)
  
 # Method : POST /addWorkload
 # # Input : na

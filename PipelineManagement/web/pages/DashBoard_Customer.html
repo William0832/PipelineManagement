@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>客戶資料</title>
+  
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+    <!-- import Bootstrap 3  -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+  
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.5/css/bootstrap-select.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.5/js/bootstrap-select.min.js"></script>
+  
+    <!-- import react  package-->
+    <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  
+    <!-- import Redux  -->
+    <script src="https://unpkg.com/redux@3.7.2/dist/redux.min.js"></script>
+  
+    <!-- import D3.js -->
+    <script src="http://d3js.org/d3.v4.min.js"></script>
+    <!-- <link rel="stylesheet" href="/web/css/barchart.css"> -->
+  
+    <!-- import css -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- <link rel="stylesheet" href="/web/css/portal.css"> -->
+    <!-- <link rel="stylesheet" href="/web/css/capsule.css"> -->
+    <!-- <link rel="stylesheet" href="/web/css/loader.css"> -->
+    <!-- <link rel="stylesheet" href="/web/css/report.css"> -->
+  <style>
+    .headerDivider1 {
+      border-left: 1px solid #38546d;
+      border-right: 1px solid #16222c;
+      height: 80px;
+      position: absolute;
+      right: 249px;
+      top: 10px;
+    }
+  
+    .verticalDivider {
+      border-right: 1px solid gray;
+      height: 20px;
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+  </style>
+  
+  </head>
+<body>
+  <nav class="nav navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/index.html">金律鑫 MES</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <!-- <li><a href="/pages/partsReport.html">料號報表</a></li> -->
+        <li><a href="/pages/Dashboard_Workitem.html">生產報表</a></li>
+        <li><a href="/pages/Dashboard_Prepare.html">製程看板</a></li>
+        <li><a href="/pages/Dashboard_Customer.html">客戶資料</a></li>
+        <li><a href="/pages/Dashboard_Test.html">生產看板</a></li>
+        <li><a href="/pages/Report_Test.html">生產稼動表</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="tab-content">
+    <div class="tab-pane fade container in active">
+      <div class="table-responsive custom-table-width">
+        <h3>客戶資料</h3>
+        <hr>
+        <div class="form-inline">
+          <div class="form-group">
+            <label>客戶: 
+              <input type="text" id="search-customer-input">
+            </label>
+            |
+          </div>
+          <button class="btn btn-success search">
+            <span class="glyphicon glyphicon-search"></span> Search
+          </button>
+        </div>
+        <hr>
+        <a href="/pages/Record_Customer.html" class="btn btn-success" role="button">
+          建立客戶資料
+        </a>
+      </div>
+      <table 
+        class="table table-striped" 
+        id="custom-table" 
+      >
+        <thead>
+          <tr>
+            <th></th>
+            <th >Customer Code</th>
+            <th>Testing Method</th>
+            <th>Markpoint Method</th>
+            <th>Stamp Method</th>
+            <th>Package Method</th>
+            <th>Contact</th>
+          </tr>
+          <tr>
+            <th></th>
+            <th>客戶代號</th>
+            <th>測試方法</th>
+            <th>標記方法</th>
+            <th>Stamp Method</th>
+            <th>包裝方式</th>
+            <th>聯絡資料</th>
+          </tr>
+        </thead>
+        <tbody id='custom-table__content'>
+        </tbody>
+      </table>
+    </div> 
+  </div> 
+  <script src="../js/Customer.js/dashBoardCustomer.js"></script>
+</body>
+</html>
