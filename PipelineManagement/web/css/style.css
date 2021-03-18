@@ -14,13 +14,20 @@
   margin-right: 10px;
 }
 
-/* table {
-  display: block;
-  overflow-x: auto;
-  white-space: nowrap;
-} */
-
-#custom-table td {
-  align-items: center;
-  overflow: auto;
+#custom-table > thead > tr th {
+  width: 250px;
 }
+
+#custom-table > thead > tr th:nth-last-child(1){
+  vertical-align: middle;
+  width: 200px;
+}
+
+#custom-table > thead > tr th:nth-child(2) {
+  width:auto;
+}
+
+#custom-table tr td:nth-child(1) {
+  text-align: center;
+}
+

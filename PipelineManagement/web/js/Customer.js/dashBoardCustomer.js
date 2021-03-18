@@ -38,16 +38,23 @@
         // console.log(i,e)
         const { customer_id } = e
         const row = $('<tr>')
-        row.append($('<a>').attr("href", `/pages/Dashboard_Customer/${customer_id}`).attr("target", "_blank")
-          .append($('<span>')
-          .addClass("glyphicon glyphicon-edit")
-          .css("margin-top", "3px")))
-
+        // row.attr('class', 'text-center')
+        const btn = $('<a>')
+          .attr("href", `/pages/Dashboard_Customer/${customer_id}`)
+          .attr("target", "_blank")
+          .attr('class', 'btn btn-primary')
+          .text('編輯')
+        row.append(
+          $('<td>').append(btn)
+        )
         inputCols.forEach(col => {
-          let text = e[col] 
+          const text = e[col] 
             ? e[col]
             : '-'
-          row.append($('<td>').text(text))
+          row.append(
+            $('<td>')
+              .text(text)
+          )
         })
         tbody.append(row)
       })
