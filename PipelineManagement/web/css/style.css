@@ -24,23 +24,23 @@ html {
   background-color: rgba(240, 240, 240, 0.5);
 }
 
-#custom-table td {
+#dashboard-table td {
   vertical-align: middle;
 }
 
-#custom-table > thead > tr th {
+#dashboard-table > thead > tr th {
   width: 250px;
 }
 
-#custom-table > thead > tr th:nth-last-child(1) {
+#dashboard-table > thead > tr th:nth-last-child(1) {
   width: 200px;
 }
 
-#custom-table > thead > tr th:nth-child(2) {
+#dashboard-table > thead > tr th:nth-child(2) {
   width: auto;
 }
 
-#custom-table tr td:nth-child(1) {
+#dashboard-table tr td:nth-child(1) {
   text-align: center;
 }
 
@@ -63,8 +63,3 @@ html {
 label {
   margin-bottom: 0;
 }
-
-/* #test_style,
-#step {
-  display: none;
-} */

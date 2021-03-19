@@ -1,6 +1,6 @@
 (() => {
   let data = [];
-  const tbody = $("#custom-table__content");
+  const tbody = $("#dashboard-table__content");
 
   const showCustomer = ({ targets }) => {
     if (targets.length > 0) {

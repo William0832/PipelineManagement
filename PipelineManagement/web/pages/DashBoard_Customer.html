@@ -55,21 +55,8 @@
   
   </head>
 <body>
-  <nav class="nav navbar-inverse">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="/index.html">金律鑫 MES</a>
-      </div>
-      <ul class="nav navbar-nav">
-        <!-- <li><a href="/pages/partsReport.html">料號報表</a></li> -->
-        <li><a href="/pages/Dashboard_Workitem.html">生產報表</a></li>
-        <li><a href="/pages/Dashboard_Prepare.html">製程看板</a></li>
-        <li><a href="/pages/Dashboard_Customer.html">客戶資料</a></li>
-        <li><a href="/pages/Dashboard_Test.html">生產看板</a></li>
-        <li><a href="/pages/Report_Test.html">生產稼動表</a></li>
-      </ul>
-    </div>
-  </nav>
+  <nav class="nav navbar-inverse"></nav>
+
 
   <div class="tab-content">
     <div class="tab-pane fade container in active">
@@ -94,7 +81,7 @@
       </div>
       <table 
         class="table table-striped" 
-        id="custom-table" 
+        id="dashboard-table" 
       >
         <thead>
           <tr>
@@ -116,11 +103,13 @@
             <th>聯絡資料</th>
           </tr>
         </thead>
-        <tbody id='custom-table__content'>
+        <tbody id='dashboard-table__content'>
         </tbody>
       </table>
     </div> 
   </div> 
   <script src="../js/Customer.js/dashBoardCustomer.js"></script>
+  <script src="../js/component/Navbar.js"></script>
+
 </body>
 </html>

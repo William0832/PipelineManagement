@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>加工方式</title>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- import Bootstrap 3  -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.5/css/bootstrap-select.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.5/js/bootstrap-select.min.js"></script>
+
+  <!-- import react  package-->
+  <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+  <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+  <!-- import Redux  -->
+  <script src="https://unpkg.com/redux@3.7.2/dist/redux.min.js"></script>
+
+  <!-- import D3.js -->
+  <script src="http://d3js.org/d3.v4.min.js"></script>
+  <!-- <link rel="stylesheet" href="/web/css/barchart.css"> -->
+
+  <!-- import css -->
+  <link rel="stylesheet" href="/css/style.css">
+  <!-- <link rel="stylesheet" href="/web/css/portal.css"> -->
+  <!-- <link rel="stylesheet" href="/web/css/capsule.css"> -->
+  <!-- <link rel="stylesheet" href="/web/css/loader.css"> -->
+  <!-- <link rel="stylesheet" href="/web/css/report.css"> -->
+  <style>
+    .headerDivider1 {
+      border-left: 1px solid #38546d;
+      border-right: 1px solid #16222c;
+      height: 80px;
+      position: absolute;
+      right: 249px;
+      top: 10px;
+    }
+
+    .verticalDivider {
+      border-right: 1px solid gray;
+      height: 20px;
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+  </style>
+
+</head>
+
+<body>
+  <nav class="nav navbar-inverse"></nav>
+
+  <div class="tab-content">
+    <div class="tab-pane fade container in active">
+      <div class="table-responsive custom-table-width">
+        <h3>加工方式</h3>
+        <hr>
+        <div class="form-inline">
+          <div class="form-group">
+            <label>加工方式:
+              <input type="text" id="search-input">
+            </label>
+            |
+          </div>
+          <button class="btn btn-success search">
+            <span class="glyphicon glyphicon-search"></span> Search
+          </button>
+        </div>
+        <hr>
+        <a href="/pages/Record_ProcessMethod.html" class="btn btn-success" role="button">
+          建立加工方式
+        </a>
+      </div>
+      <table class="table table-striped" id="dashboard-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>加工方式</th>
+            <th>詳細資訊</th>
+          </tr>
+        </thead>
+        <tbody id='dashboard-table__content'>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <script src="../js/ProcessMethod.js/dashBoard.js"></script>
+  <script src="../js/component/Navbar.js"></script>
+</body>
+
+</html>
