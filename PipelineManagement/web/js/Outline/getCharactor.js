@@ -5,7 +5,7 @@ $(function () {
     // tam_alias = urlParams.get('tam_alias');
 
 
-    
+
 
     $.ajax({
         // url: '/getServiceQuota/ec2',
@@ -32,13 +32,13 @@ $(function () {
 
 
                 var row = $('<tr>');
-                row.append($('<td >').text(role_id));  
-                row.append($('<td >').append($('<img src="/assets/photo/'+role_photo_link+'" width="30px" title="'+role_alias+'" style="margin:2px 2px 2px 2px">')));
-                row.append($('<td >').text(role_name + "/" +role_alias));  
-                row.append($('<td >').text(role_description));  
+                row.append($('<td >').text(role_id));
+                row.append($('<td >').append($('<img src="/assets/photo/' + role_photo_link + '" width="30px" title="' + role_alias + '" style="margin:2px 2px 2px 2px">')));
+                row.append($('<td >').text(role_name + "/" + role_alias));
+                row.append($('<td >').text(role_description));
 
-                
-            
+
+
                 $('#charactorTable').find('tbody').append(row);
 
 

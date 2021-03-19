@@ -5,15 +5,15 @@
   // const table = document.getElementById('customer-input-form')
   const input = document.querySelector('input')
   const textareaList = document.querySelectorAll('textarea')
-  const submitBtn = document.getElementById("btn-submit")
+  const submitBtn = document.getElementById('btn-submit')
   const title = document.querySelector('.title')
   let data = {}
   let handleSubmit = null
   const loadInputTOData = () => {
     customer_id
-    ? data[input.name] = input.placeholder
-    : data[input.name] = input.value
-    textareaList.forEach(e => {
+      ? (data[input.name] = input.placeholder)
+      : (data[input.name] = input.value)
+    textareaList.forEach((e) => {
       data[e.name] = e.value
     })
   }
@@ -28,7 +28,7 @@
       setTimeout(() => {
         alert('請輸入顧客代號')
         form.classList.toggle('has-error')
-        isSubmitting =false
+        isSubmitting = false
       }, 500)
     }
     $.ajax({
@@ -36,14 +36,14 @@
       type: 'POST',
       data,
       dataType: 'json',
-      success (json) {
+      success(json) {
         console.log('success')
         isSubmitting = false
       },
-      fail (json) {
+      fail(json) {
         console.log('fail')
         isSubmitting = false
-      }
+      },
     })
   }
   const updateCustomer = ({ id }) => {
@@ -55,15 +55,14 @@
       type: 'POST',
       data,
       dataType: 'json',
-      success (json) {
+      success(json) {
         console.log('success')
-        isSubmitting = false    
+        isSubmitting = false
       },
-      fail (json) {
+      fail(json) {
         console.log('fail')
         isSubmitting = false
-
-      }
+      },
     })
   }
   const getCustomer = ({ id }) => {
@@ -71,7 +70,7 @@
       url: `/customers/${id}`,
       type: 'GET',
       dataType: 'json',
-      success (json) {
+      success(json) {
         const result = json.results[0]
         data[input.name] = result[input.name]
         input.placeholder = data[input.name]
@@ -81,9 +80,9 @@
           e.value = data[name]
         })
       },
-      fail (json) {
+      fail(json) {
         console.log('fail')
-      }
+      },
     })
   }
   if (customer_id) {
@@ -98,17 +97,17 @@
   } else {
     // open input
     input.disabled = false
-    // create customer 
+    // create customer
     handleSubmit = () => {
       createCustomer()
     }
   }
 
-  document.getElementById("btn-submit").onclick = function () {
-    if(isSubmitting) return 
+  document.getElementById('btn-submit').onclick = function () {
+    if (isSubmitting) return
     handleSubmit()
   }
-  document.getElementById("btn-cancel").onclick = function () {
-    location.href = "/pages/Dashboard_Customer.html"
+  document.getElementById('btn-cancel').onclick = function () {
+    location.href = '/pages/Dashboard_Customer.html'
   }
 })()

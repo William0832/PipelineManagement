@@ -4,18 +4,18 @@
 <head>
   <title>建立客戶資料</title>
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- import Bootstrap 3  -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css" />
   <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
 
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.5/css/bootstrap-select.min.css">
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.5/css/bootstrap-select.min.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.5/js/bootstrap-select.min.js"></script>
 
   <!-- import react  package-->
@@ -31,12 +31,11 @@
   <!-- <link rel="stylesheet" href="/web/css/barchart.css"> -->
 
   <!-- import css -->
-  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../../css/style.css" />
   <!-- <link rel="stylesheet" href="/web/css/portal.css"> -->
   <!-- <link rel="stylesheet" href="/web/css/capsule.css"> -->
   <!-- <link rel="stylesheet" href="/web/css/loader.css"> -->
   <!-- <link rel="stylesheet" href="/web/css/report.css"> -->
-
 </head>
 
 <body>
@@ -56,69 +55,71 @@
     </div>
   </nav>
   <div class="tab-content">
-  
     <!-- 3 Service Quota -->
     <div id="servicequota" class="tab-pane fade container in active">
-  
       <div class="table-responsive custom-table-width">
-        <h3 class='title'>建立客戶資料</h3>
-        <form id='customer-input-form'>
+        <h3 class="title">建立客戶資料</h3>
+        <form id="customer-input-form">
           <h4><span class="glyphicon glyphicon-stop"></span> 基本資訊:</h4>
           <div class="bgc-secondary">
-              <div class="form-group">
-                <label class="control-label">
-                  顧客代號:
-                  <input type="text" class="form-control" name='customer' placeholder='' disabled>
-                </label>
-              </div>
-              <div class="form-group">
-                <label>
-                  Contact:
-                  <textarea class='form-control' name="contact" id="" rows="4"></textarea>
-                </label>
-              </div>   
-
+            <div class="form-group">
+              <label class="control-label">
+                顧客代號:
+                <input type="text" class="form-control" name="customer" placeholder="" disabled />
+              </label>
+            </div>
+            <hr />
+            <div class="form-group">
+              <label>
+                Contact:
+                <textarea class="form-control" name="contact" id="" rows="4"></textarea>
+              </label>
+            </div>
           </div>
           <h4><span class="glyphicon glyphicon-stop"></span> 注意事項:</h4>
-          <div class="bgc-secondary">   
-              <div class="form-group">
-                <label>
-                  Testing Method:
-                  <textarea class='form-control' name="testing" rows="4"></textarea>
-                </label>
-              </div>
-              <div class="form-group">
-                <label>
-                  Markpoint Method:
-                  <textarea class='form-control' name="markpoint" rows="4"></textarea>
-                </label>
-              </div>
-              <div class="form-group">
-                <label>
-                  Stamp MEthod:
-                  <textarea class='form-control' name="stamp" rows="4"></textarea>
-                </label>
-              </div>
-              <div class="form-group">
-                <label>
-                  Package Method:
-                  <textarea class='form-control' name="package" rows="4"></textarea>
-                </label>
-              </div>
+          <div class="bgc-secondary">
+            <div class="form-group">
+              <label>
+                Testing Method:
+                <textarea class="form-control" name="testing" rows="4"></textarea>
+              </label>
+            </div>
+            <hr />
+            <div class="form-group">
+              <label>
+                Markpoint Method:
+                <textarea class="form-control" name="markpoint" rows="4"></textarea>
+              </label>
+            </div>
+            <hr />
+            <div class="form-group">
+              <label>
+                Stamp MEthod:
+                <textarea class="form-control" name="stamp" rows="4"></textarea>
+              </label>
+            </div>
+            <hr />
+            <div class="form-group">
+              <label>
+                Package Method:
+                <textarea class="form-control" name="package" rows="4"></textarea>
+              </label>
+            </div>
           </div>
         </form>
+      </div>
 
+      <div style="float: right">
+        <button type="button" class="btn btn-success" id="btn-submit">
+          建立客戶資料
+        </button>
+        <button type="button" class="btn btn-danger" id="btn-cancel">
+          取消
+        </button>
       </div>
-  
-      <div style="float:right">
-        <button type="button" class="btn btn-success" id="btn-submit">建立客戶資料</button>
-        <button type="button" class="btn btn-danger" id="btn-cancel">取消</button>
-      </div>
-  
+
       <script src="../../js/Customer.js/recordCustomer.js"></script>
-
     </div>
-  
   </div>
   <hr />
 </body>
