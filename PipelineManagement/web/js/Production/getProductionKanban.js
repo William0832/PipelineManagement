@@ -1,6 +1,5 @@
 $(function () {
   let data = []
-
   const showWorkitems = (data) => {
     $.each(data, function (i, result) {
       const { work_item_id } = result
@@ -37,7 +36,6 @@ $(function () {
       $('#productionKanbanTable').find('tbody').append(row)
     })
   }
-
   const workitemsFilter = () => {
     let partNoInput = document.getElementById('part-no-input').value.toLowerCase()
     let customerInput = document.getElementById('customer-input').value.toLowerCase()
