@@ -10,9 +10,9 @@
     <!-- import Bootstrap 3  -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
-    
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> 
-    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script> 
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.5/css/bootstrap-select.min.css">
@@ -46,7 +46,8 @@
         <div class="container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand" href="/index.html">金律鑫 MES</a>
-            </div><ul class="nav navbar-nav">
+            </div>
+            <ul class="nav navbar-nav">
                 <!-- <li><a href="/pages/partsReport.html">料號報表</a></li> -->
                 <li><a href="/pages/Dashboard_Workitem.html">生產報表</a></li>
                 <li><a href="/pages/Dashboard_Prepare.html">製程看板</a></li>
@@ -57,24 +58,24 @@
         </div>
     </nav>
     <style>
-        .headerDivider1 { 
-    border-left:1px solid #38546d; 
-    border-right:1px solid #16222c; 
-    height:80px; 
-    position:absolute; 
-    right:249px; 
-    top:10px; 
-} 
-.verticalDivider { 
-    
-    border-right:1px solid gray; 
-    height:20px; 
-    margin-left:10px;
-    margin-right:10px;
-    
-    
-} 
+        .headerDivider1 {
+            border-left: 1px solid #38546d;
+            border-right: 1px solid #16222c;
+            height: 80px;
+            position: absolute;
+            right: 249px;
+            top: 10px;
+        }
 
+        .verticalDivider {
+
+            border-right: 1px solid gray;
+            height: 20px;
+            margin-left: 10px;
+            margin-right: 10px;
+
+
+        }
     </style>
 
     <div class="tab-content">
@@ -87,17 +88,18 @@
                 <hr>
                 <div>
                     <!-- <span class="glyphicon glyphicon-filter"></span> -->
-                    <label>料號: </label><input placeholder="e.g. 04CXR092H001" style="margin-left:5px"> 
+                    <label>料號: </label><input id="part-no-input" placeholder="e.g. 04CXR092H001"
+                        style="margin-left:5px">
                     <span class="verticalDivider"></span>
-                    <label>客戶: </label><input placeholder="客戶名稱或編號" style="margin-left:5px"> 
+                    <label>客戶: </label><input id="customer-input" placeholder="客戶名稱或編號" style="margin-left:5px">
                     <span class="verticalDivider"></span>
-                    <a href="#" class="btn btn-success">
-                        <span class="glyphicon glyphicon-search"></span> Search 
-                      </a>
+                    <a  class="btn btn-success btn-search">
+                        <span class="glyphicon glyphicon-search"></span> Search
+                    </a>
                     <span style="width:100%;display:inline"> </span>
                     <!-- <button type="button" class="btn btn-primary" style="position:absolute;right:180px">產生當日報表(Excel)</button>
                     <button type="button" class="btn btn-primary" style="position:absolute;right:10px">產生個人報表(Excel)</button> -->
-                    
+
                 </div>
                 <hr>
                 <a href="/pages/Record_Workitem.html" class="btn btn-success" role="button">建立生產工單</a>
@@ -106,7 +108,7 @@
                 <p>If the quota is not enough or the resource is tight, please click the button to submit the "Service
                     Limit Increase" case.</p> -->
                 <!-- <hr /> -->
-<!--                 
+                <!--                 
                 
                 <div class="btn-group">
                     <button type="button" class="btn btn-primary" onclick="filterButton('role')">根據角色篩選</button>
@@ -124,7 +126,7 @@
                     <button type="button" class="btn btn-default" onclick="filterScene('艾拉家')">艾拉家</button>
                     <button type="button" class="btn btn-default" onclick="filterScene('球場')">球場</button>
                 </div> -->
-                
+
                 <!-- <br/> -->
                 <!-- <hr/> -->
                 <!-- <button class="btn btn-success"  data-toggle="modal" data-target="#modal_AddOutline">新增報表</button> -->
@@ -153,9 +155,9 @@
                     </div> -->
 
 
-                    
-                </div>
-                <script>
+
+            </div>
+            <!-- <script>
                     function filterButton(input) {
                        
                         div_role = document.getElementById("divFilterByRole");
@@ -170,8 +172,8 @@
                         }
                       
                     }
-                </script>
-                <script>
+                </script> -->
+            <!-- <script>
                     function filterRole(input) {
                          var table, tr, td, i, txtValue;
                         table = document.getElementById("productionKanbanTable");
@@ -203,8 +205,8 @@
                       }
                       
                     }
-                </script>
-                <script>
+                </script> -->
+            <!-- <script>
                     function filterScene(input) {
                          var table, tr, td, i, txtValue;
                         table = document.getElementById("productionKanbanTable");
@@ -236,248 +238,264 @@
                       }
                       
                     }
-                </script>
-                <!-- <hr /> -->
-                <style>
-                    table {
-    display: block;
-    overflow-x: auto;
+                </script> -->
+            <!-- <hr /> -->
+            <style>
+                table {
+                    display: block;
+                    overflow-x: auto;
+                    white-space: nowrap;
+                }
+            </style>
+            <table class="table table-striped" id="productionKanbanTable" style="overflow: auto; ">
+                <thead>
+                    <tr>
+                        <th rowspan="2" style="width:100px"></th>
+                        <th style="width:100px"></th>
+                        <th style="width:100px">DATE</th>
+                        <th style="width:100px">CATEGORY</th>
+                        <th style="width:100px">CUSTOMER</th>
+                        <th style="width:300px">Part No.</th>
+                        <th style="width:100px">Lot No.</th>
+                        <th style="width:100px">Units</th>
+                        <th style="width:100px"></th>
+                        <th style="width:100px">State</th>
+                        <th rowspan="2" style="width:100px"></th>
+                    </tr>
+                    <tr>
 
-    
-    white-space: nowrap;
-}
-                </style>
-                <table class="table table-striped" id="productionKanbanTable" style="overflow: auto; ">
-                    <thead>
-                        <tr>
-                            <th rowspan="2" style="width:100px"></th>
-                            <th style="width:100px"></th>
-                            <th style="width:100px">DATE</th>
-                            <th style="width:100px">CATEGORY</th>
-                            <th style="width:100px">CUSTOMER</th>
-                            <th style="width:300px">Part No.</th>
-                            <th style="width:100px">Lot No.</th>
-                            <th style="width:100px">Units</th>
-                            <th style="width:100px"></th>
-                            <th style="width:100px">State</th>
-                            <th rowspan="2" style="width:100px"></th>
-                        </tr>
-                        <tr>
-
-                            <th style="width:100px">Test/RT</th>
-                            <th style="width:100px">進料時間</th>
-                            <th style="width:100px">測試類別</th>
-                            <th style="width:100px">客戶</th>
-                            <th style="width:100px">料號</th>
-                            <th style="width:300px">批號</th>
-                            <th style="width:100px">片數</th>
-                            <th style="width:100px">排程</th>
-                            <th style="width:100px">生產狀態</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-                
-                <script src="/js/Production/getProductionKanban.js"></script>
-                <!-- <div class="loader loader-4" id="loader-sq">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div> -->
-                <script type="text/javascript">
-                    // $('tbody').sortable();
-                  </script>
-
-            </div>
-
+                        <th style="width:100px">Test/RT</th>
+                        <th style="width:100px">進料時間</th>
+                        <th style="width:100px">測試類別</th>
+                        <th style="width:100px">客戶</th>
+                        <th style="width:100px">料號</th>
+                        <th style="width:300px">批號</th>
+                        <th style="width:100px">片數</th>
+                        <th style="width:100px">排程</th>
+                        <th style="width:100px">生產狀態</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
         </div>
-        <hr />
 
-<!-- Modal -->
-<div class="modal fade" id="modal_AddItem" role="dialog">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">新增生產工單</h4>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label>Test/RT</label>
-                    <select class="form-control" id="sel1">
-                        <option value="1">Test</option>
-                        <option value="2">RT</option>
-                    </select>
-                    <br/>
-                    <label>測試日期</label>
-                    <textarea id="new_acct_alias" placeholder="2021/02/02 15:45" class="form-control" rows="5" ></textarea>
-                    <br/>
-                    <label>測試類別</label>
-                    <select class="form-control" id="sel1">
-                        <option value="1">EZG</option>
-                        <option value="2">FLY</option>
-                        <option value="3">LM1000</option>
-                    </select>
-                    <br/>
-                    <label>客戶</label>
-                    <input type="text" class="form-control" id="usr" placeholder="H3,D,T,L1,X">
-                    
-                    <br/>
-                    <label>料號 Part No.</label>
-                    <br/>
-                    <input type="text" class="form-control" id="usr" placeholder="">
-                    <br/>
-                    <label>批號 Lot No.</label>
-                    <br/>
-                    <input type="text" class="form-control" id="usr" placeholder="">
+    </div>
+    <hr />
 
-                    <br/>
-                    <label>片數 Units</label>
-                    <br/>
-                    <input type="number" class="form-control" id="usr" placeholder="">
-                    <br/>
-                    <label>排程</label>
-                    <br/>
-                    <input type="text" class="form-control" id="usr" placeholder="">
-                    <br/>
-                    <label>生產狀態</label>
-                    <br/>
-                    
-                    <div class="btn-group" id="status" data-toggle="buttons">
-                        <label class="btn btn-default btn-on btn-sm active">
-                        <input type="radio" value="1" name="multifeatured_module[module_id][status]" checked="checked">待測試</label>
-                        <label class="btn btn-default btn-off btn-sm ">
-                        <input type="radio" value="0" name="multifeatured_module[module_id][status]">待測試(無資料)</label>
-                        <label class="btn btn-default btn-off btn-sm ">
-                        <input type="radio" value="0" name="multifeatured_module[module_id][status]">測試中</label>
-                        <label class="btn btn-default btn-off btn-sm ">
-                        <input type="radio" value="0" name="multifeatured_module[module_id][status]">測試完成待包裝</label>
-                        <label class="btn btn-default btn-off btn-sm ">
-                        <input type="radio" value="0" name="multifeatured_module[module_id][status]">已出貨</label>
-                      </div>
+    <!-- Modal -->
+    <div class="modal fade" id="modal_AddItem" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">新增生產工單</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Test/RT</label>
+                        <select class="form-control" id="sel1">
+                            <option value="1">Test</option>
+                            <option value="2">RT</option>
+                        </select>
+                        <br />
+                        <label>測試日期</label>
+                        <textarea id="new_acct_alias" placeholder="2021/02/02 15:45" class="form-control"
+                            rows="5"></textarea>
+                        <br />
+                        <label>測試類別</label>
+                        <select class="form-control" id="sel1">
+                            <option value="1">EZG</option>
+                            <option value="2">FLY</option>
+                            <option value="3">LM1000</option>
+                        </select>
+                        <br />
+                        <label>客戶</label>
+                        <input type="text" class="form-control" id="usr" placeholder="H3,D,T,L1,X">
+
+                        <br />
+                        <label>料號 Part No.</label>
+                        <br />
+                        <input type="text" class="form-control" id="usr" placeholder="">
+                        <br />
+                        <label>批號 Lot No.</label>
+                        <br />
+                        <input type="text" class="form-control" id="usr" placeholder="">
+
+                        <br />
+                        <label>片數 Units</label>
+                        <br />
+                        <input type="number" class="form-control" id="usr" placeholder="">
+                        <br />
+                        <label>排程</label>
+                        <br />
+                        <input type="text" class="form-control" id="usr" placeholder="">
+                        <br />
+                        <label>生產狀態</label>
+                        <br />
+
+                        <div class="btn-group" id="status" data-toggle="buttons">
+                            <label class="btn btn-default btn-on btn-sm active">
+                                <input type="radio" value="1" name="multifeatured_module[module_id][status]"
+                                    checked="checked">待測試</label>
+                            <label class="btn btn-default btn-off btn-sm ">
+                                <input type="radio" value="0"
+                                    name="multifeatured_module[module_id][status]">待測試(無資料)</label>
+                            <label class="btn btn-default btn-off btn-sm ">
+                                <input type="radio" value="0" name="multifeatured_module[module_id][status]">測試中</label>
+                            <label class="btn btn-default btn-off btn-sm ">
+                                <input type="radio" value="0"
+                                    name="multifeatured_module[module_id][status]">測試完成待包裝</label>
+                            <label class="btn btn-default btn-off btn-sm ">
+                                <input type="radio" value="0" name="multifeatured_module[module_id][status]">已出貨</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal"
+                        onclick="addUser()">Submit</button>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="addUser()">Submit</button>
+        </div>
+    </div>
+    <div class="modal fade" id="modal_acct_permission_change" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Change Permission</h4>
+                </div>
+                <div class="modal-body">
+                    <label>TAM Alias:</label>
+                    <input id="to_be_change_acct" type="text" style="width:300px;padding-left:5px"></input>
+                    <br />
+                    <label>Current Permission</label>
+                    <input id="to_be_change_permission" type="text" style="width:300px;padding-left:5px"></input>
+                </div>
+                <div class="modal-body">
+                    <label>New Permission:</label>
+                    <input id="change_permission" type="text" placeholder="choose permission: guest, pilot, gcr"
+                        style="width:300px;padding-left:5px"></input>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal"
+                        onclick="changeAcctPermission()">Submit</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<div class="modal fade" id="modal_acct_permission_change" role="dialog">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Change Permission</h4>
-            </div>
-            <div class="modal-body">
-                <label>TAM Alias:</label>
-                <input id="to_be_change_acct" type="text" style="width:300px;padding-left:5px"></input>
-                <br/>
-                <label>Current Permission</label>
-                <input id="to_be_change_permission" type="text" style="width:300px;padding-left:5px"></input>
-            </div>
-            <div class="modal-body">
-                <label>New Permission:</label>
-                <input id="change_permission" type="text" placeholder="choose permission: guest, pilot, gcr" style="width:300px;padding-left:5px"></input>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="changeAcctPermission()">Submit</button>
-            </div>
-        </div>
-    </div>
-</div>
-       
-<script>    
-    function addOutline() {
-        // alert('New value: ' + myRadio.value);
-        // alert('Name: ' + myRadio.name);
-        // optradio_q2_2
 
-        new_acct_alias = document.getElementById("new_acct_alias").value;
-        new_permission = document.getElementById("new_permission").value;
-        // 
-        $.ajax({
-            // url: '/json/mock/cx_score_detail.json',
-            url: '/addUser',
-            type: 'POST',
-            data: {acct_alias:new_acct_alias,permission:new_permission},
-            dataType: 'json',
-            success: function (json) {
-                if(json.result!="success"){
-                    console.log("Update detail")
-                    console.log(json);
-                    alert(json.message);
-                    location.reload();
-                }else{
-                    console.log("Update detail")
-                    console.log(json);
-                }
-                
-                
-            }
-        });       
-    }
-    function changeAcctPermission() {
-        // alert('New value: ' + myRadio.value);
-        // alert('Name: ' + myRadio.name);
-        // optradio_q2_2
 
-        to_be_change_acct = document.getElementById("to_be_change_acct").value;
-        to_be_change_permission = document.getElementById("to_be_change_permission").value;
-        change_permission = document.getElementById("change_permission").value;
+    <script src="/js/Production/getProductionKanban.js"></script>
+    <script>
+        // function addOutline() {
+        //     // alert('New value: ' + myRadio.value);
+        //     // alert('Name: ' + myRadio.name);
+        //     // optradio_q2_2
 
-        if(change_permission.length<1){
-            alert("Please input new permission.");
-        }else{
+        //     new_acct_alias = document.getElementById("new_acct_alias").value;
+        //     new_permission = document.getElementById("new_permission").value;
+        //     // 
+        //     $.ajax({
+        //         // url: '/json/mock/cx_score_detail.json',
+        //         url: '/addUser',
+        //         type: 'POST',
+        //         data: {acct_alias:new_acct_alias,permission:new_permission},
+        //         dataType: 'json',
+        //         success: function (json) {
+        //             if(json.result!="success"){
+        //                 console.log("Update detail")
+        //                 console.log(json);
+        //                 alert(json.message);
+        //                 location.reload();
+        //             }else{
+        //                 console.log("Update detail")
+        //                 console.log(json);
+        //             }
 
-            $.ajax({
-                // url: '/json/mock/cx_score_detail.json',
-                url: '/changeAcctPermission',
-                type: 'POST',
-                data: {acct_alias:to_be_change_acct,permission:change_permission},
-                dataType: 'json',
-                success: function (json) {
-                    if(json.result!="success"){
-                        console.log("Update detail")
-                        console.log(json);
-                        alert(json.message);
-                        location.reload();
-                    }else{
-                        console.log("Update detail")
-                        console.log(json);
-                    }
-                    
-                    
-                }
-            });  
+
+        //         }
+        //     });       
+        // }
+        // function changeAcctPermission() {
+        //     // alert('New value: ' + myRadio.value);
+        //     // alert('Name: ' + myRadio.name);
+        //     // optradio_q2_2
+
+        //     to_be_change_acct = document.getElementById("to_be_change_acct").value;
+        //     to_be_change_permission = document.getElementById("to_be_change_permission").value;
+        //     change_permission = document.getElementById("change_permission").value;
+
+        //     if(change_permission.length<1){
+        //         alert("Please input new permission.");
+        //     }else{
+
+        //         $.ajax({
+        //             // url: '/json/mock/cx_score_detail.json',
+        //             url: '/changeAcctPermission',
+        //             type: 'POST',
+        //             data: {acct_alias:to_be_change_acct,permission:change_permission},
+        //             dataType: 'json',
+        //             success: function (json) {
+        //                 if(json.result!="success"){
+        //                     console.log("Update detail")
+        //                     console.log(json);
+        //                     alert(json.message);
+        //                     location.reload();
+        //                 }else{
+        //                     console.log("Update detail")
+        //                     console.log(json);
+        //                 }
+
+
+        //             }
+        //         });  
+        //     }
+
+
+        // }
+        // function handleChangeScore(myItem) {
+        //     // alert('New value: ' + myRadio.value);
+        //     // alert('Name: ' + myRadio.name);
+        //     // alert("test");
+        //     var div_id = myItem.id.replace("change_","rating-block-");
+
+        //     // alert($("#"+div_id).getAttribute('data-value'))
+        //     if($("#"+div_id).is(":visible") ){
+        //         $("#"+div_id).hide();
+        //     }else{
+
+        //         $("#"+div_id).show();
+        //     }
+
+
+
+        // }
+        const data = document.querySelectorAll('tbody >tr')
+        const workitemsFilter = () => {
+            console.log(data.length)
+            let partNoInput = document.getElementById('part-no-input').value.toLowerCase()
+            let customerInput = document.getElementById('customer-input').value.toLowerCase()
+            let copyData = JSON.parse(JSON.stringify(data))
+            result = Array.from(copyData).filter(row => {
+                let partNoValue = row.children[5].innerText.toLowerCase()
+                let customerValue = row.children[4].innerText.toLowerCase()
+                return partNoValue.includes(partNoInput)
+            })
+            console.log(result)
+            const tbody = document.querySelector('tbody')
+            tbody.innerHTML = ''
+            result.forEach(e=>{
+                tbody.appendChild(e)
+            })
         }
-
-             
-    }
-    function handleChangeScore(myItem) {
-        // alert('New value: ' + myRadio.value);
-        // alert('Name: ' + myRadio.name);
-        // alert("test");
-        var div_id = myItem.id.replace("change_","rating-block-");
-        
-        // alert($("#"+div_id).getAttribute('data-value'))
-        if($("#"+div_id).is(":visible") ){
-            $("#"+div_id).hide();
-        }else{
-            
-            $("#"+div_id).show();
-        }
-        
-        
-
-    }
-    
-</script>
+        document.querySelector('.btn-search').addEventListener('click', ()=>{
+            workitemsFilter()
+        })
+    </script>
 
 </body>
 
