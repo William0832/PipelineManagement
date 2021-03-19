@@ -17,7 +17,7 @@
         const { customer_id } = e;
         const row = $("<tr>");
         const btn = $("<a>")
-          .attr("href", `/pages/Dashboard_Customer/${customer_id}`)
+          .attr("href", `/pages/Record_Customer/${customer_id}`)
           .attr("target", "_blank")
           .attr("class", "btn btn-primary")
           .text("編輯");

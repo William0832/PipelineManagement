@@ -23,6 +23,9 @@ DATABASE = 'data/production_database.db'
 app = Flask(__name__)
 app.config["JSON_AS_ASCII"] = False
 
+# MModified by William @2021/3/20
+from routes import *
+app.register_blueprint(routes)
 
 def root_dir():
     return os.path.abspath(os.path.dirname(__file__))
@@ -41,12 +44,23 @@ def send_web(path):
     return send_from_directory('web', path)
 
 
-# Method : GET /pages/Dashboard_Customer/id
+## Modified by William @ 2021-03-19
+# Method : GET /pages/target/id
+# Input : i
+# Decription : 用 ID 取得目標詳細資料頁面
+@app.route('/pages/<target>/<int:id>')
+def getRecordPageWithId(target,id):
+    # print('===========', target)
+    return send_from_directory('web', f'pages/{target}.html')
+
+
+# # Modified by William @ 2021-03-19, 整合到同個 function ，這裡就註解掉
+# Method : GET /pages/Record_Customer/id
 # Input : na
 # Description : 取得客戶資料頁面
-@app.route('/pages/Dashboard_Customer/<int:id>')
-def getCustomerEditPage(id):
-    return send_from_directory('web', 'pages/Record_Customer.html')
+# @app.route('/pages/Record_Customer/<int:id>')
+# def getCustomerEditPage(id):
+#     return send_from_directory('web', 'pages/Record_Customer.html')
 
 
 # Method : GET /customers
@@ -199,13 +213,14 @@ def addWorkitem():
     return jsonify(result)
 
 
-# Method : GET /pages/workitem/id
+# # Modified by William @ 2021-03-19, 整合到同個 function ，這裡就註解掉 
+# Method : GET /pages/Record_Workitem/id
 # Input : na
 # Description : 取得檢視生產供單頁面
-@app.route('/pages/workitem/<int:id>')
-def getWorkitemInfoPage(id):
-    print('getWorkitemInfoPage id', id)
-    return send_from_directory('web', 'pages/Record_Workitem.html')
+# @app.route('/pages/Record_Workitem/<int:id>')
+# def getWorkitemInfoPage(id):
+#     print('getWorkitemInfoPage id', id)
+#     return send_from_directory('web', 'pages/Record_Workitem.html')
 
 
 # Method : GET /workitem/id
@@ -782,32 +797,6 @@ def finishTestRecord():
     result = {}
     result["result"] = "success"
     result["message"] = "成功指定生產機台"
-    return jsonify(result)
-
-
-# Modified by William @ 2021-03-19
-# Method : GET /workitemProcessMethods
-# Input : na
-# Decription : 取得加工方法
-@app.route('/workitemProcessMethods')
-def getWorkitemProcessMethods():
-    conn =sqlite3.connect(DATABASE)
-    cursor = conn.cursor()
-    result = {}
-    result["results"] = []
-    sql = "select * from work_item_process_method"
-    print(sql)
-    cursor.execute(sql)
-    tables = cursor.fetchall()
-
-    for record in tables:
-        r = {}
-        n = 0
-        for col in record:
-            key = cursor.description[n][0]
-            r[key] = col
-            n += 1
-        result["results"].append(r)
     return jsonify(result)
 
 

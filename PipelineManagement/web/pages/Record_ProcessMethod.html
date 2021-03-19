@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>建立客戶資料</title>
+  <title class='title'>建立加工方式</title>
 
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -46,51 +46,32 @@
     <!-- 3 Service Quota -->
     <div id="servicequota" class="tab-pane fade container in active">
       <div class="table-responsive custom-table-width">
-        <h3 class="title">建立客戶資料</h3>
-        <form id="customer-input-form">
+
+        <h3 class="title">建立加工方式</h3>
+
+        <div style="float: right">
+          <button type="button" class="btn btn-danger" id="btn-delete">
+            刪除加工方式
+          </button>
+        </div>
+
+        <form id="record-form">
           <h4><span class="glyphicon glyphicon-stop"></span> 基本資訊:</h4>
           <div class="bgc-secondary">
+
             <div class="form-group">
               <label class="control-label">
-                顧客代號:
-                <input type="text" class="form-control" name="customer" placeholder="" disabled />
+                加工方式:
+                <input type="text" class="form-control" name="method_name" placeholder="" />
               </label>
             </div>
+
             <hr />
+
             <div class="form-group">
               <label>
-                Contact:
-                <textarea class="form-control" name="contact" id="" rows="4"></textarea>
-              </label>
-            </div>
-          </div>
-          <h4><span class="glyphicon glyphicon-stop"></span> 注意事項:</h4>
-          <div class="bgc-secondary">
-            <div class="form-group">
-              <label>
-                Testing Method:
-                <textarea class="form-control" name="testing" rows="4"></textarea>
-              </label>
-            </div>
-            <hr />
-            <div class="form-group">
-              <label>
-                Markpoint Method:
-                <textarea class="form-control" name="markpoint" rows="4"></textarea>
-              </label>
-            </div>
-            <hr />
-            <div class="form-group">
-              <label>
-                Stamp MEthod:
-                <textarea class="form-control" name="stamp" rows="4"></textarea>
-              </label>
-            </div>
-            <hr />
-            <div class="form-group">
-              <label>
-                Package Method:
-                <textarea class="form-control" name="package" rows="4"></textarea>
+                詳細資訊:
+                <textarea class="form-control" name="method_description" rows="4"></textarea>
               </label>
             </div>
           </div>
@@ -99,7 +80,7 @@
 
       <div style="float: right">
         <button type="button" class="btn btn-success" id="btn-submit">
-          建立客戶資料
+          建立加工方式
         </button>
         <button type="button" class="btn btn-danger" id="btn-cancel">
           取消
@@ -108,8 +89,8 @@
     </div>
   </div>
   <hr />
-    <script src="../../js/ProcessMethod.js/record.js"></script>
-    <script src="../js/component/Navbar.js"></script>
+    <script src="../../js/ProcessMethod.js/recordBoard.js"></script>
+    <script src="../../js/component/Navbar.js"></script>
 </body>
 
 </html>

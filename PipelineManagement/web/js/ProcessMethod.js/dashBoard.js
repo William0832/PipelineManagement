@@ -1,7 +1,7 @@
 ;(() => {
   let data = []
   const tbody = $("#dashboard-table__content")
-  const fetchUrl = '/workitemProcessMethods'
+  const fetchUrl = '/processMethods'
   const idStr = 'method_id'
   const PageItemName = 'ProcessMethod'
   const showItems = ({ targets }) => {
@@ -12,7 +12,7 @@
       ]
       $.each(targets, (i, e) => {
         const id = e[idStr]
-        const itemUrl = `/pages/Dashboard_${PageItemName}/${id}`
+        const itemUrl = `/pages/Record_${PageItemName}/${id}`
         const row = $("<tr>")
         const btn = $("<a>")
           .attr("href", itemUrl)
@@ -41,13 +41,14 @@
       console.log("fail");
     },
   })
-  let input = document.getElementById("search-input")
-  let searchBtn = document.querySelector("button.search")
-  searchBtn.addEventListener("click", () => {
-    let str = input.value.toLowerCase();
-    const targets = data.filter(
-      (e) => e.customer && e.customer.toLowerCase().includes(str)
-    );
-    showItems({ targets });
-  })
+  // Filter 
+  // let input = document.getElementById("search-input")
+  // let searchBtn = document.querySelector("button.search")
+  // searchBtn.addEventListener("click", () => {
+  //   let str = input.value.toLowerCase();
+  //   const targets = data.filter(
+  //     (e) => e.customer && e.customer.toLowerCase().includes(str)
+  //   );
+  //   showItems({ targets })
+  // })
 })()

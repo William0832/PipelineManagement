@@ -18,7 +18,7 @@ $(function () {
       var row = $('<tr>')
       row.append(
         $('<a>')
-          .attr('href', `/pages/workitem/${work_item_id}`)
+          .attr('href', `/pages/Record_Workitem/${work_item_id}`)
           .attr('target', '_blank')
           .attr('class', 'btn btn-primary')
           .text('檢視')
