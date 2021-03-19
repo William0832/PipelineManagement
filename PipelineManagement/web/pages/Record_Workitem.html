@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>建立工單</title>
+    <title class="page-title">建立工單</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -94,7 +94,7 @@
         <div id="servicequota" class="tab-pane fade container in active">
 
             <div class="table-responsive custom-table-width">
-                <h3>建立工單</h3>
+                <h3 class="page-title">建立工單</h3>
                 <button 
                     type="button" 
                     class="btn btn-success pull-right" 
@@ -205,51 +205,53 @@
                 <h4><span class="glyphicon glyphicon-stop"></span> 治具資訊: </h4>
                 <h5 style="color:darkred">(自動根據輸入的料號查詢，並帶入資料，不需要輸入）</h5>
                 <div class='bgc-secondary'>
-                    <table>
-                        <tr>
-                            <td>
-                                <label for='part-no'>查詢料號: </label>
-                            </td>
-                            <td>
-                                <input  id='part_no' placeholder="04CXR092H001" style="margin-left:5px" readonly> 
-                            </td>
-                            
-                            <td>
-                                <label for="jig-state">是否有現成治具? </label>
-                            </td>
-                            <td> 
-                                <select name="jig-state" id="jig-state" disabled>
-                                    <option value="有現成治具" selected>有現成治具</option>
-                                    <option value="客供治具" >客供治具</option>
-                                    <option value="無現成治具，需準備治具">無現成治具，需準備治具</option>
-                                </select>
-
-                            </td>
-                            
-                        </tr>
-                        <tr>
-                            <td>
-                                <label for='jig-no'>治具編號: </label>
-                            </td>
-                            <td>
-                                <input id="jig-no" name='id="jig-no' placeholder="xxxxxxxxx" readonly> 
-                            </td>
-                            <td>
-                                <label for='jig-position'>治具所在櫃位: </label>
-                            </td>
-                            <td>
-                                <input id='jig-position' name='jig-position' placeholder="34" readonly> 
-                            </td>
-                            <td>
-                                <label for='jig-lending-state'>治具狀態: </label>
-                            </td>
-                            <td>
-                                <input id='jig-lending-state' placeholder="已被借出" readonly readonly> 
-                            </td>
-                            <td class="spacetd"></td>
-                        </tr>
-    
-                    </table>
+                    <form id='jig'>
+                        <table>
+                            <tr>
+                                <td>
+                                    <label >查詢料號: </label>
+                                </td>
+                                <td>
+                                    <input name='part_no' placeholder="04CXR092H001" style="margin-left:5px" disabled>
+                                </td>
+                        
+                                <td>
+                                    <label for="jig-existed">是否有現成治具? </label>
+                                </td>
+                                <td>
+                                    <select class="form-control" name="jig-existed" id="jig-state" disabled>
+                                        <option value="有現成治具" selected>有現成治具</option>
+                                        <option value="客供治具">客供治具</option>
+                                        <option value="無現成治具，需準備治具">無現成治具，需準備治具</option>
+                                    </select>
+                        
+                                </td>
+                        
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for='jig-no'>治具編號: </label>
+                                </td>
+                                <td>
+                                    <input id="jig-no" name='id="jig-no' placeholder="xxxxxxxxx" disabled>
+                                </td>
+                                <td>
+                                    <label for='jig-position'>治具所在櫃位: </label>
+                                </td>
+                                <td>
+                                    <input id='jig-position' name='jig-position' placeholder="34" disabled>
+                                </td>
+                                <td>
+                                    <label for='jig-lending'>治具狀態: </label>
+                                </td>
+                                <td>
+                                    <input id='jig-lending' name='jig-lending' placeholder="已被借出" disabled>
+                                </td>
+                                <td class="spacetd"></td>
+                            </tr>
+                        
+                        </table>
+                    </form>
                 </div>
 
 
@@ -307,7 +309,7 @@
                                 <label>程式名稱: </label>
                             </td>
                             <td>
-                                <input placeholder="T/H5900871B-R" style="margin-left:5px" readonly> 
+                                <input placeholder="T/H5900871B-R" style="margin-left:5px" disabled> 
                             </td>
                             
                             
@@ -317,20 +319,20 @@
                                 <label>電壓(v) </label>
                             </td>
                             <td>
-                                <input placeholder="250" style="margin-left:5px" readonly> 
+                                <input placeholder="250" style="margin-left:5px" disabled> 
                             </td>
                             <td>
                                 <label>開路(ohm)</label>
                             </td>
                             <td>
-                                <input placeholder="30" style="width:120px;margin-left:5px" readonly> 
+                                <input placeholder="30" style="width:120px;margin-left:5px" disabled> 
                             </td>
     
                             <td>
                                 <label>絕緣(Mohm)</label>
                             </td>
                             <td>
-                                <input placeholder="100" style="width:120px;margin-left:5px" readonly> 
+                                <input placeholder="100" style="width:120px;margin-left:5px" disabled> 
                             </td>
                         </tr>
     
@@ -387,7 +389,7 @@
 
             <div style="float:right">
                 <button type="button" class="btn btn-success" id="btn-submit-workitem">建立工單</button>
-                <button type="button" class="btn btn-danger" id="btn-cancel">取消</button>
+                <button type="button" class="btn btn-secondary" id="btn-cancel">取消</button>
             </div>
         </div>
 

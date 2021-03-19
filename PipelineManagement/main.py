@@ -40,20 +40,18 @@ def getfile(filename):
 def send_web(path):
     return send_from_directory('web', path)
 
+
 # Method : GET /pages/Dashboard_Customer/id
 # Input : na
 # Description : 取得客戶資料頁面
-
-
 @app.route('/pages/Dashboard_Customer/<int:id>')
 def getCustomerEditPage(id):
     return send_from_directory('web', 'pages/Record_Customer.html')
 
+
 # Method : GET /customers
 # Input : na
 # Description : 取得所有客戶資料清
-
-
 @app.route('/customers')
 def getCustomers():
     conn = sqlite3.connect(DATABASE)
@@ -77,11 +75,10 @@ def getCustomers():
 
     return jsonify(result)
 
+
 # Method : GET /customers/id
 # Input : id
 # Description : 取得客戶資料清
-
-
 @app.route('/customers/<int:id>')
 def getCustomer(id):
     print('get customer id', id)
@@ -103,11 +100,10 @@ def getCustomer(id):
         result["results"].append(r)
     return jsonify(result)
 
+
 # Method: POST / customer
 # Input: na
 # Description: 建立客戶資料
-
-
 @app.route('/addCustomer', methods=['POST'])
 def addCustomer():
     # create_dt = datetime.datetime.today().strftime("%Y-%m-%d %H:%M:%S")
@@ -132,11 +128,10 @@ def addCustomer():
     result["message"] = "成功建立客戶資料"
     return jsonify(result)
 
+
 # Method: POST / customer/id
 # Input: id
 # Description: 更新客戶資料
-
-
 @app.route('/updateCustomer/<int:id>', methods=['POST'])
 def updateCustomer(id):
     print('update customer id', id)
@@ -203,24 +198,22 @@ def addWorkitem():
     result["message"] = "成功建立工單"
     return jsonify(result)
 
+
 # Method : GET /pages/workitem/id
 # Input : na
 # Description : 取得檢視生產供單頁面
-
-
 @app.route('/pages/workitem/<int:id>')
 def getWorkitemInfoPage(id):
     print('getWorkitemInfoPage id', id)
     return send_from_directory('web', 'pages/Record_Workitem.html')
 
+
 # Method : GET /workitem/id
 # Input : na
 # Description : 取得單筆 workitem 詳細資
-
-
 @app.route('/workitem/<int:id>')
 def getWorkitem(id):
-    print('get workitem id', id)
+    # print('get workitem id', id)
     conn = sqlite3.connect(DATABASE)
     cursor = conn.cursor()
     sql = f'SELECT * FROM record_work_item where work_item_id = {id}'
@@ -240,11 +233,10 @@ def getWorkitem(id):
         result['results'].append(r)
     return jsonify(result)
 
+
 # Method : GET /prepare/getWaitingItems
 # Input : na
 # Decription : 取得待處理項目
-
-
 @app.route('/prepare/getPrepareWaitings')
 def getPrepareWaitingItems():
 
@@ -282,11 +274,30 @@ def getPrepareWaitingItems():
 
     return jsonify(result)
 
+
+# TODO: Modified by William @2021/03/19 need EJ CARRY
+# Method : GET /workitem/copy/idd
+# Input : na
+# Description : 回傳複製工單 id
+@app.route('/workitem/copy/<int:id>')
+def copyWorkitem(id):
+    print('Copy Workitem', id)
+    result = { 'state': 'success' }
+    return jsonify(result)
+
+# TODO: Modified by William @2021/03/19 need EJ CARRY
+# Method : GET /workitem/delete/idd
+# Input : na
+# Description : 回傳刪除工單 id
+@app.route('/workitem/delete/<int:id>')
+def deleteWorkitem(id):
+    print('Delete Workitem', id)
+    result = { 'state': 'success' }
+    return jsonify(result)
+
 # Method : GET /prepare/getPrepareToolStatus
 # Input : na
 # Decription : 取得待處理項目
-
-
 @app.route('/prepare/getPrepareToolStatus')
 def getPrepareToolStatus():
 
@@ -366,11 +377,10 @@ def getPrepareToolDone():
 
     return jsonify(result)
 
+
 # Method : POST /prepare/changePrepareRecordPhase
 # # Input : na
 # # Decription : 更新治具準備製程
-
-
 @app.route('/prepare/changePrepareRecordPhase', methods=['POST'])
 def changePrepareRecordPhase():
 
@@ -426,7 +436,6 @@ def changePrepareRecordPhase():
 # Method : POST /prepare/finishPrepareRecordPhase
 # # Input : na
 # # Decription : 完成治具準備製程
-
 @app.route('/prepare/finishPrepareRecordPhase', methods=['POST'])
 def finishPrepareRecordPhase():
 
@@ -477,11 +486,11 @@ def finishPrepareRecordPhase():
     result["result"] = "success"
     result["message"] = "成功更新治具製程狀態"
     return jsonify(result)
+
+
 # Method : POST /prepare/changePrepareRecordPhase
 # # Input : na
 # # Decription : 更新治具準備製程
-
-
 @app.route('/prepare/checkInPrepareRecord', methods=['POST'])
 def checkInPrepareRecord():
 
@@ -641,11 +650,10 @@ def getTestToolStatus():
 
     return jsonify(result)
 
+
 # Method : POST /prepare/checkInTestRecord
 # # Input : na
 # # Decription : 更新測試機台
-
-
 @app.route('/testing/checkInTestRecord', methods=['POST'])
 def checkInTestRecord():
 
@@ -686,7 +694,6 @@ def checkInTestRecord():
 # Method : POST /prepare/checkInFlyTestRecord
 # # Input : na
 # # Decription : 更新測試機台
-
 @app.route('/testing/checkInFlyTestRecord', methods=['POST'])
 def checkInFlyTestRecord():
 
@@ -737,11 +744,10 @@ def checkInFlyTestRecord():
     result["message"] = "成功指定生產機台"
     return jsonify(result)
 
+
 # Method : POST /prepare/finishTestRecord
 # # Input : na
 # # Decription : 完成測試機台
-
-
 @app.route('/testing/finishTestRecord', methods=['POST'])
 def finishTestRecord():
 
@@ -778,6 +784,7 @@ def finishTestRecord():
     result["message"] = "成功指定生產機台"
     return jsonify(result)
 
+
 # Modified by William @ 2021-03-19
 # Method : GET /workitemProcessMethods
 # Input : na
@@ -802,6 +809,7 @@ def getWorkitemProcessMethods():
             n += 1
         result["results"].append(r)
     return jsonify(result)
+
 
 # Method : GET /workitem/getWorkitems
 # Input : na

@@ -65,12 +65,13 @@
     ...document.querySelectorAll('input'),
     ...document.querySelectorAll('select')
   ]
+  let data = {}
   let btnCopy = document.getElementById("btn-copy-workitem")
   const btnSubmit = document.getElementById("btn-submit-workitem")
-  let data = {}
   const testStyleWrapper = document.querySelector('.test-style-wrapper')
+  // TODO: add 欄位還沒全部進去
   const addWorkitem = () => {
-    console.log('add click')
+    console.log('addWorkitem')
     customer_id = document.getElementById("customer_id").value
     part_no = document.getElementById("part_no").value
     lot_no = document.getElementById("lot_no").value
@@ -107,8 +108,20 @@
       }
     })
   }
-  const copyWorkitem = () => {
-    console.log('copyWorkitem')
+  // TODO:  copy 確認路由，和返回資料
+  const copyWorkitem = async ({id}) => {
+    console.log('copyWorkitem',id) 
+    await $.ajax({
+      url: `/workitem/copy/${id}`,
+      method: 'GET',
+      success (json) {
+        console.log(json)
+        console.log('success')
+      },
+      fail (json) {
+        console.log('fail')
+      }
+    })
   }
   const getWorkitem = async ({ id }) => {
     await $.ajax({
@@ -118,6 +131,21 @@
       success (json) {
         data = { ...json.results[0] }
         console.log(data)
+        console.log('success')
+      },
+      fail (json) {
+        console.log('fail')
+      }
+    })
+  }
+  // TODO:  delete 確認路由，和返回資料
+  const deleteWorkitem = async ({id}) => {
+    console.log('deleteWorkitem',id)
+    await $.ajax({
+      url: `/workitem/delete/${id}`,
+      method: 'GET',
+      success (json) {
+        console.log(json)
         console.log('success')
       },
       fail (json) {
@@ -170,30 +198,47 @@
       }
     })
   }
+  let submitHandler = null
   const URL = window.location.href
   const work_item_id = +URL.split('/')[URL.split('/').length - 1]
-
+  // add dynamic options 
   addOptionsInProcessMethods()
   addTestOptions('test_style')
   addTestOptions('test_style_sec')
+
+  // use wId to determine create or delete workitem
   if (work_item_id) {
-    // show detail
-    btnSubmit.disabled = true
+    // change titles
+    document.querySelectorAll('.page-title').forEach(e=>{
+      e.innerText = '工單資料'
+    })
+    // change submit btn
+    btnSubmit.classList.replace('btn-success','btn-danger')
+    btnSubmit.innerText = '刪除工單'
+    submitHandler = () => {
+      deleteWorkitem({ id: work_item_id})
+    }
+     // show detail
     await getWorkitem({ id: work_item_id })
     showWorkitem()
   } else {
-    // create new 
+    // change submit btn to add workitem
     btnCopy.style.display = 'none'
+    submitHandler = () => {
+      addWorkitem()
+    }
   }
 
   if (btnCopy.style.display !== 'none') {
     btnCopy.onclick = () => {
-      copyWorkitem()
+      copyWorkitem({ id: work_item_id})
     }
   }
+
   btnSubmit.onclick = () => {
-    addWorkitem()
+    submitHandler()
   }
+
   document.getElementById("btn-cancel").onclick = function () {
     location.href = "/pages/Dashboard_Workitem.html"
   }
