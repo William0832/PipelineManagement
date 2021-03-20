@@ -33,8 +33,10 @@ $(function () {
                 var customer_id = result.customer_id;
                 var part_no = result.part_no;
                 var lot_no = result.lot_no;
+                var part_ready = result.part_ready;
 
                 var work_item_status = result.work_item_status;
+                var urgent = result.urgent;
                 
 
 
@@ -69,17 +71,42 @@ $(function () {
                         
                     // }
 
-                    var onclick_event_name = "checkInTestRecord";
-                    if (tool_type =="飛針"){
-                        onclick_event_name = "checkInFlyTestRecord";
+                    var urgent_badge = '';
+                    if(urgent=="急件"){
+                        urgent_badge = '<span class="label label-warning">急件</span>';
+
+
+                    }else if(urgent=="特急"){
+                        urgent_badge = '<span class="label label-danger">特急</span>';
                     }
-                
-                    var button = '<button onclick="'+onclick_event_name+'('+test_record_id+', \''+tool_type+'\')">指派機台</button><br/> ';
-                    if(work_item_status == '待測試(無資料)'){
-                        var button = '<button onclick="'+onclick_event_name+'('+test_record_id+', \''+tool_type+'\')" disabled>等待治具中</button><br/> ';
+                    
+
+                    if(part_ready == 'Y'){
+
+                        var onclick_event_name = "checkInTestRecord";
+                        if (tool_type =="飛針"){
+                            onclick_event_name = "checkInFlyTestRecord";
+                        }
+                    
+                        var button = '<button onclick="'+onclick_event_name+'('+test_record_id+', \''+tool_type+'\')">指派機台</button> '+urgent_badge+'<br/> ';
+                        if(work_item_status == '待測試(無資料)'){
+                            var button = '<button onclick="'+onclick_event_name+'('+test_record_id+', \''+tool_type+'\')" disabled>等待治具中</button> '+urgent_badge+'<br/> ';
+                        }
+    
+                        $('#testing_waitings').append($('<a href="#">'+part_no+' ('+tool_type+')</a>  '+delta+'小時   '+button));
+
+                    }else{
+                        var onclick_event_name = "checkInPart";
+                        
+                    
+                        var button = '<button onclick="'+onclick_event_name+'('+work_item_id+')">進料</button> '+urgent_badge+'<br/> ';
+
+
+                        $('#testing_waiting_part').append($('<a href="#">'+part_no+'</a>  '+delta+'小時   '+button));
                     }
 
-                    $('#testing_waitings').append($('<a href="#">'+part_no+' ('+tool_type+')</a>  '+delta+'小時   '+button));
+
+                    
     
                     
                 }

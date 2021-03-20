@@ -126,16 +126,37 @@
             }
         </style>
         <div class="tab-pane fade container in active">
-            <panel style="width:1000px;height:150px" class="panel_idle">
-                <table>
-                    <tr  style="height: 100px;vertical-align:top">
-                        <td id="testing_waitings" style="padding-left:20px">
-                            待處理:<br/>
-                        </td>
-                </table>
-                
-            </panel>
+            <table>
+                <tr>
+                    <td style="vertical-align:top">
+                        <panel style="width:500px;height:160px" class="panel_idle">
+                            <table>
+                                <tr  style="height: 100px;vertical-align:top">
+                                    <td id="testing_waiting_part" style="padding-left:20px">
+                                        待進料:<br/>
+                                    </td>
+                            </table>
+                            
+                        </panel>
+                    </td>
+                    <td style="vertical-align:top">
+                        <panel style="width:500px;height:160px" class="panel_idle">
+                            <table>
+                                <tr  style="height: 100px;vertical-align:top">
+                                    <td id="testing_waitings" style="padding-left:20px">
+                                        待處理:<br/>
+                                    </td>
+                            </table>
+                            
+                        </panel>
+                    </td>
+                </tr>
+            </table>
+            
+            
         </div>
+        
+        
         
         
         <div class="tab-pane fade container in active">
@@ -157,6 +178,55 @@
                     <span></span>
                 </div> -->
                 <script type="text/javascript">
+
+                    function checkInPart(work_item_id){
+                        // $('#change_record_id').val(record_id)
+                        // $('#select_type').val(type)
+                        // $('#select_tool_id').empty();
+
+
+                        // $.ajax({
+                        //     // url: '/getServiceQuota/ec2',
+                        //     url: '/testing/getTools/test',
+                        //     type: 'GET',
+                        //     dataType: 'json',
+                        //     success: function (json) {
+                        //         // console.log("Get Customer List Table")
+                        //         console.log(json);
+
+                        //         // var total_count = 0;
+                        //         // var complete_survey_count = 0;
+                        //         // var complete_comment_count = 0;
+
+                        //         $.each(json.results, function (i, result) {
+
+                        //             // 
+                        //             var tool_type = result.tool_type;
+                        //             var tool_id = result.tool_id;
+                        //             var tool_name = result.tool_name;
+                        //             var owner = result.owner;
+                                    
+
+
+                        //             if(tool_type == type){
+                        //                 $('#select_tool_id').append('<option value="'+tool_id+'">'+tool_id+'('+tool_name+')</option>');
+                        //             }
+                                    
+                                
+
+                        //         });
+
+                                
+
+                        //     },
+                        //     fail: function (json) { console.log("fail"); }
+                        // });
+
+                        
+                        
+                        
+                        // $('#checkInTestRecordModal').modal('show');
+                    }
                     function checkInTestRecord(record_id,type){
                         $('#change_record_id').val(record_id)
                         $('#select_type').val(type)

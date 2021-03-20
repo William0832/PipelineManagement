@@ -12,7 +12,7 @@
       ]
       $.each(targets, (i, e) => {
         const id = e[idStr]
-        const itemUrl = `/pages/Record_${PageItemName}/${id}`
+        const itemUrl = `/pages/${PageItemName}/${id}`
         const row = $("<tr>")
         const btn = $("<a>")
           .attr("href", itemUrl)

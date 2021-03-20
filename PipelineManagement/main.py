@@ -23,7 +23,7 @@ DATABASE = 'data/production_database.db'
 app = Flask(__name__)
 app.config["JSON_AS_ASCII"] = False
 
-# MModified by William @2021/3/20
+# Modified by William @2021/3/20
 from routes import *
 app.register_blueprint(routes)
 
@@ -44,23 +44,15 @@ def send_web(path):
     return send_from_directory('web', path)
 
 
-## Modified by William @ 2021-03-19
+# Modified by William @ 2021-03-20
 # Method : GET /pages/target/id
 # Input : i
-# Decription : 用 ID 取得目標詳細資料頁面
-@app.route('/pages/<target>/<int:id>')
-def getRecordPageWithId(target,id):
-    # print('===========', target)
-    return send_from_directory('web', f'pages/{target}.html')
-
-
-# # Modified by William @ 2021-03-19, 整合到同個 function ，這裡就註解掉
-# Method : GET /pages/Record_Customer/id
-# Input : na
-# Description : 取得客戶資料頁面
-# @app.route('/pages/Record_Customer/<int:id>')
-# def getCustomerEditPage(id):
-#     return send_from_directory('web', 'pages/Record_Customer.html')
+# Description : 用 ID 取得目標詳細資料頁面
+@app.route('/pages/<string:target>/<int:id>')
+def getRecordPageWithId(target, id):
+    print('===========', target)
+    fileName = 'Record_'+ target[0].upper() + target[1:]
+    return send_from_directory('web', f'pages/{fileName}.html')
 
 
 # Method : GET /customers
@@ -171,7 +163,7 @@ def updateCustomer(id):
 
 # Method : POST /addWorkitem
 # # Input : na
-# # Decription : 建立工單，並建立治具與測試待處理項目
+# # Description : 建立工單，並建立治具與測試待處理項目
 @app.route('/addWorkitem', methods=['POST'])
 def addWorkitem():
 
@@ -213,16 +205,6 @@ def addWorkitem():
     return jsonify(result)
 
 
-# # Modified by William @ 2021-03-19, 整合到同個 function ，這裡就註解掉 
-# Method : GET /pages/Record_Workitem/id
-# Input : na
-# Description : 取得檢視生產供單頁面
-# @app.route('/pages/Record_Workitem/<int:id>')
-# def getWorkitemInfoPage(id):
-#     print('getWorkitemInfoPage id', id)
-#     return send_from_directory('web', 'pages/Record_Workitem.html')
-
-
 # Method : GET /workitem/id
 # Input : na
 # Description : 取得單筆 workitem 詳細資
@@ -251,7 +233,7 @@ def getWorkitem(id):
 
 # Method : GET /prepare/getWaitingItems
 # Input : na
-# Decription : 取得待處理項目
+# Description : 取得待處理項目
 @app.route('/prepare/getPrepareWaitings')
 def getPrepareWaitingItems():
 
@@ -312,7 +294,7 @@ def deleteWorkitem(id):
 
 # Method : GET /prepare/getPrepareToolStatus
 # Input : na
-# Decription : 取得待處理項目
+# Description : 取得待處理項目
 @app.route('/prepare/getPrepareToolStatus')
 def getPrepareToolStatus():
 
@@ -352,7 +334,7 @@ def getPrepareToolStatus():
 
 # Method : GET /prepare/getPrepareDone
 # Input : na
-# Decription : 取得待處理項目
+# Description : 取得待處理項目
 @app.route('/prepare/getPrepareDone')
 def getPrepareToolDone():
 
@@ -395,7 +377,7 @@ def getPrepareToolDone():
 
 # Method : POST /prepare/changePrepareRecordPhase
 # # Input : na
-# # Decription : 更新治具準備製程
+# # Description : 更新治具準備製程
 @app.route('/prepare/changePrepareRecordPhase', methods=['POST'])
 def changePrepareRecordPhase():
 
@@ -450,7 +432,7 @@ def changePrepareRecordPhase():
 
 # Method : POST /prepare/finishPrepareRecordPhase
 # # Input : na
-# # Decription : 完成治具準備製程
+# # Description : 完成治具準備製程
 @app.route('/prepare/finishPrepareRecordPhase', methods=['POST'])
 def finishPrepareRecordPhase():
 
@@ -505,7 +487,7 @@ def finishPrepareRecordPhase():
 
 # Method : POST /prepare/changePrepareRecordPhase
 # # Input : na
-# # Decription : 更新治具準備製程
+# # Description : 更新治具準備製程
 @app.route('/prepare/checkInPrepareRecord', methods=['POST'])
 def checkInPrepareRecord():
 
@@ -552,7 +534,7 @@ def checkInPrepareRecord():
 
 # Method : GET /prepare/getWaitingItems
 # Input : na
-# Decription : 取得待處理項目
+# Description : 取得待處理項目
 @app.route('/testing/getTestWaitings')
 def getTestWaitings():
 
@@ -584,14 +566,17 @@ def getTestWaitings():
         r["lot_no"] = record[35]
 
         r["work_item_status"] = record[59]
+        r["part_ready"] = record[63]
+        r["urgent"] = record[68]
 
         result["results"].append(r)
 
     return jsonify(result)
 
+
 # Method : GET /testing/getTools
 # Input : na
-# Decription : 取得生產測試機台
+# Description : 取得生產測試機台
 @app.route('/testing/getTools/<string:prepare_or_test>')
 def getTools(prepare_or_test):
 
@@ -631,7 +616,7 @@ def getTools(prepare_or_test):
 
 # Method : GET /testing/getTestToolStatus
 # Input : na
-# Decription : 取得待處理項目
+# Description : 取得待處理項目
 @app.route('/testing/getTestToolStatus')
 def getTestToolStatus():
 
@@ -671,7 +656,7 @@ def getTestToolStatus():
 
 # Method : POST /prepare/checkInTestRecord
 # # Input : na
-# # Decription : 更新測試機台
+# # Description : 更新測試機台
 @app.route('/testing/checkInTestRecord', methods=['POST'])
 def checkInTestRecord():
 
@@ -711,7 +696,7 @@ def checkInTestRecord():
 
 # Method : POST /prepare/checkInFlyTestRecord
 # # Input : na
-# # Decription : 更新測試機台
+# # Description : 更新測試機台
 @app.route('/testing/checkInFlyTestRecord', methods=['POST'])
 def checkInFlyTestRecord():
 
@@ -765,7 +750,7 @@ def checkInFlyTestRecord():
 
 # Method : POST /prepare/finishTestRecord
 # # Input : na
-# # Decription : 完成測試機台
+# # Description : 完成測試機台
 @app.route('/testing/finishTestRecord', methods=['POST'])
 def finishTestRecord():
 
@@ -805,7 +790,7 @@ def finishTestRecord():
 
 # Method : GET /workitem/getWorkitems
 # Input : na
-# Decription : 取得待處理項目
+# Description : 取得待處理項目
 @app.route('/workitem/getWorkitems')
 def getWorkitems():
 
@@ -844,7 +829,7 @@ def getWorkitems():
 
 # Method : GET /pat/getCustomerInfo/<string:customer_name>
 # Input : na
-# Decription : get pat customer info
+# Description : get pat customer info
 @app.route('/product/getProductionReport')
 def getProductionReport():
 
@@ -897,7 +882,7 @@ def getProductionReport():
 
 # Method : GET /pat/getCustomerInfo/<string:customer_name>
 # Input : na
-# Decription : get pat customer info
+# Description : get pat customer info
 @app.route('/role/getRoles')
 def getRoles():
 
@@ -928,7 +913,7 @@ def getRoles():
 
 # Method : GET /getCustomerInfo/<string:customer_name>
 # Input : na
-# Decription : get customer info
+# Description : get customer info
 @app.route('/getCustomerList/<string:tam_alias>')
 def getCustomerList(tam_alias):
 
@@ -1030,7 +1015,7 @@ def getCustomerList(tam_alias):
 
 # Method : GET /pat/getCustomerInfo/<string:customer_name>
 # Input : na
-# Decription : get pat customer info
+# Description : get pat customer info
 @app.route('/pat/getCustomerList')
 def getPATCustomerList():
 
@@ -1077,7 +1062,7 @@ def getPATCustomerList():
 
 # Method : GET /pat/getCustomerInfo/<string:customer_name>
 # Input : na
-# Decription : get PAT CommunicationLog
+# Description : get PAT CommunicationLog
 @app.route('/pat/getCommunicationLog/<string:customer_name>')
 def getCommunicationLog(customer_name):
 
@@ -1117,7 +1102,7 @@ def getCommunicationLog(customer_name):
 
 # Method : GET /getTAMList
 # Input : na
-# Decription : get tam list
+# Description : get tam list
 @app.route('/getTAMList')
 def getTAMList():
 
@@ -1145,7 +1130,7 @@ def getTAMList():
 
 # Method : GET /getCurrentUser
 # Input : na
-# Decription : get current user
+# Description : get current user
 @app.route('/getCurrentUser')
 def getCurrentUser():
     user = request.remote_user
@@ -1157,9 +1142,7 @@ def getCurrentUser():
 
 # Method :  /checkUserPermission
 # Input : na
-# Decription : check user permission
-
-
+# Description : check user permission
 def checkUserPermission(user_alias):
 
     conn = sqlite3.connect(DATABASE)
@@ -1177,7 +1160,7 @@ def checkUserPermission(user_alias):
 
 # Method : GET /getMemberList/<string:tam_alias>
 # Input : na
-# Decription : get tam list
+# Description : get tam list
 @app.route('/getMemberList/<string:tam_alias>')
 def getMemberList(tam_alias):
 
@@ -1260,11 +1243,10 @@ def getMemberList(tam_alias):
 
     return jsonify(result)
 
+
 # Method : GET /getTAMInfo
 # Input : na
-# Decription : get ESM by TAM
-
-
+# Description : get ESM by TAM
 @app.route('/getTAMInfo/<string:tam_alias>')
 def getTAMInfo(tam_alias):
 
@@ -1349,11 +1331,10 @@ def getTAMInfo(tam_alias):
 
     return jsonify(result)
 
+
 # Method : GET /getCustomerWorkload/<string:customer_name>
 # Input : na
-# Decription : get customer info
-
-
+# Description : get customer info
 @app.route('/getCustomerWorkload/<string:customer_name>')
 def getCustomerWorkload(customer_name):
 
@@ -1389,7 +1370,7 @@ def getCustomerWorkload(customer_name):
 
 # Method : GET /getAcctList
 # Input : na
-# Decription : get acct permission
+# Description : get acct permission
 @app.route('/getAcctList')
 def getAcctList():
 
@@ -1428,7 +1409,7 @@ def getAcctList():
 
 # Method : GET /getCustomerInfo/<string:customer_name>
 # Input : na
-# Decription : get customer info
+# Description : get customer info
 @app.route('/getCustomerInfo/<string:customer_name>')
 def getCustomerInfo(customer_name):
 
@@ -1447,7 +1428,7 @@ def getCustomerInfo(customer_name):
 
 # Method : GET /getCustomerSurveySummary/<string:customer_name>
 # Input : na
-# Decription : get service list for testing, debug & verification
+# Description : get service list for testing, debug & verification
 @app.route('/getCustomerSurveySummary/<string:customer_name>')
 def getCustomerSurveySummary(customer_name):
 
@@ -1520,7 +1501,7 @@ def getCustomerSurveySummary(customer_name):
 
 # Method : GET /getCustomerSurveyAnswer/<string:customer_name>
 # Input : na
-# Decription : get customer info
+# Description : get customer info
 @app.route('/getCustomerSurveyAnswer/<string:customer_name>')
 def getCustomerSurveyAnswer(customer_name):
 
@@ -1559,7 +1540,7 @@ def getCustomerSurveyAnswer(customer_name):
 
 # Method : GET /getCustomerSurveyResult/<string:customer_name>
 # Input : na
-# Decription : get customer survey result by customer name
+# Description : get customer survey result by customer name
 @app.route('/getCustomerSurveyResult/<string:customer_name>')
 def get_CustomerSurveyResult(customer_name):
     conn = sqlite3.connect(DATABASE)
@@ -1909,7 +1890,7 @@ def get_CustomerSurveyResult(customer_name):
 
 # Method : GET /getCustomerESStatus/<string:customer_name>
 # Input : na
-# Decription : get getCustomerESStatus
+# Description : get getCustomerESStatus
 @app.route('/getCustomerESStatus/<string:customer_name>')
 def getCustomerESStatus(customer_name):
 
@@ -2004,11 +1985,10 @@ def getCustomerESStatus(customer_name):
 
     return jsonify(r)
 
+
 # Method : POST /updateCustomerSummary
 # # Input : na
-# # Decription : updateCustomerSummary
-
-
+# # Description : updateCustomerSummary
 @app.route('/updateCustomerSummary', methods=['POST'])
 def updateCustomerSummary():
 
@@ -2035,8 +2015,7 @@ def updateCustomerSummary():
 
 # Method : POST /updateCatgSummary
 # # Input : na
-# # Decription : updateCatgSummary
-
+# # Description : updateCatgSummary
 @app.route('/updateCatgSummary', methods=['POST'])
 def updateCatgSummary():
 
@@ -2078,8 +2057,7 @@ def updateCatgSummary():
 
 # Method : POST /updateQuestionDesc
 # # Input : na
-# # Decription : updateQuestionDesc
-
+# # Description : updateQuestionDesc
 @app.route('/updateQuestionDesc', methods=['POST'])
 def updateQuestionDesc():
 
@@ -2123,8 +2101,7 @@ def updateQuestionDesc():
 
 # Method : POST /updateQuestionAction
 # # Input : na
-# # Decription : updateQuestionAction
-
+# # Description : updateQuestionAction
 @app.route('/updateQuestionAction', methods=['POST'])
 def updateQuestionAction():
 
@@ -2168,8 +2145,7 @@ def updateQuestionAction():
 
 # Method : POST /updateQuestionScore
 # # Input : na
-# # Decription : updateQuestionScore
-
+# # Description : updateQuestionScore
 @app.route('/updateQuestionScore', methods=['POST'])
 def updateQuestionScore():
 
@@ -2550,13 +2526,12 @@ def checkCompleteComment(customer_name):
 
 # Method : POST /addWorkload
 # # Input : na
-# # Decription : addWorkload
+# # Description : addWorkload
 
 
 # Method : POST /addCustomer
 # # Input : na
-# # Decription : addCustomer
-
+# # Description : addCustomer
 # @app.route('/addCustomer', methods=['POST'])
 # # def addCustomer():
 
@@ -2598,10 +2573,10 @@ def checkCompleteComment(customer_name):
 #   result["result"] = "Success create customer: "+ customer_name
 #   return jsonify(result)
 
+
 # Method : POST /addWorkload
 # # Input : na
-# # Decription : addWorkload
-
+# # Description : addWorkload
 @app.route('/addWorkload', methods=['POST'])
 def addWorkload():
 
@@ -2636,8 +2611,7 @@ def addWorkload():
 
 # Method : POST /addWorkload
 # # Input : na
-# # Decription : addWorkload
-
+# # Description : addWorkload
 @app.route('/changeWorkloadName', methods=['POST'])
 def changeWorkloadName():
 
@@ -2672,8 +2646,7 @@ def changeWorkloadName():
 
 # Method : POST /updateWorkload
 # # Input : na
-# # Decription : updateWorkload
-
+# # Description : updateWorkload
 @app.route('/updateWorkload', methods=['POST'])
 def updateWorkload():
 
@@ -2697,8 +2670,7 @@ def updateWorkload():
 
 # Method : POST /submitSurvey
 # # Input : na
-# # Decription : submitSurvey
-
+# # Description : submitSurvey
 @app.route('/submitSurvey', methods=['POST'])
 def submitSurvey():
 
@@ -2920,8 +2892,7 @@ def submitSurvey():
 
 # Method : POST /updateCustomerSummary
 # # Input : na
-# # Decription : updateCustomerSummary
-
+# # Description : updateCustomerSummary
 @app.route('/updateCustomerESStatus', methods=['POST'])
 def updateCustomerESStatus():
 
@@ -2960,8 +2931,7 @@ def updateCustomerESStatus():
 
 # Method : GET /getCustomerSentiment
 # # Input : na
-# # Decription : getCustomerSentiment
-
+# # Description : getCustomerSentiment
 @app.route('/getCustomerExperience/<string:customer_name>', methods=['GET'])
 def getCustomerExperience(customer_name):
 
@@ -2992,8 +2962,7 @@ def getCustomerExperience(customer_name):
 
 # Method : POST /updateSentiment
 # # Input : na
-# # Decription : updateSentiment
-
+# # Description : updateSentiment
 @app.route('/updateSentiment', methods=['POST'])
 def updateSentiment():
 
