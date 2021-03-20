@@ -12,6 +12,7 @@
         <li><a href="/pages/Dashboard_ProcessMethod.html">加工方式</a></li>
         <li><a href="/pages/Dashboard_Test.html">生產看板</a></li>
         <li><a href="/pages/Report_Test.html">生產稼動表</a></li>
+        <li><a href="/pages/Dashboard_Tool.html">機台清單報表</a></li>
       </ul>
     </div>
   `

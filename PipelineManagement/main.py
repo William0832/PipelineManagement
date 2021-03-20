@@ -589,7 +589,6 @@ def getTestWaitings():
 
     return jsonify(result)
 
-
 # Method : GET /testing/getTools
 # Input : na
 # Decription : 取得生產測試機台
@@ -620,6 +619,10 @@ def getTools(prepare_or_test):
         r["tool_id"] = record[2]
         r["tool_name"] = record[3]
         r["owner"] = record[4]
+
+        # Modified By William 2021/03/20
+        r["update_dt"] = record[6]
+        r["enable"] = record[8]
 
         result["results"].append(r)
 
