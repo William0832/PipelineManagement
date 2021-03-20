@@ -7,6 +7,7 @@ from datetime import date
 
 from . import routes
 
+# 很怪，DB只能絕對路徑
 DATABASE = os.path.join(
     os.path.dirname(__file__).replace(os.path.dirname(__file__), '', 1),
     'data\production_database.db'
@@ -78,6 +79,7 @@ def update(id):
 # Description : 取得全部加工方法
 @routes.route('/processMethods')
 def getAll():
+    print('=======all=========')
     conn = sqlite3.connect(DATABASE)
     cursor = conn.cursor()
     result = {}
